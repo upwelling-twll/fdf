@@ -33,7 +33,7 @@ int	main(int argc, char *argv[])
 	close(fd);
 	fd = open(file, O_RDONLY);
 	save_map(fd, &mdata);
-	print_map_matrix(*mdata);
+	//print_map_matrix(mdata);
 	close(fd);
 	return (exit_fdf(&mdata, 0));
 }

@@ -17,6 +17,17 @@ int	*split_digits(char *str, size_t len)
 	return (arr);
 }
 
+void	print_line(int *line)
+{
+	int i = 0;
+
+	while (i < 12)
+	{
+		printf("%i", line[i]);
+		i++;
+	}
+}
+
 void	save_map(int fd, t_map **mdata)
 {
 	char	*str;
@@ -29,7 +40,9 @@ void	save_map(int fd, t_map **mdata)
 		printf("sizeof matrix=%lu\n", sizeof((*mdata)->matrix));
 		(*mdata)->matrix[i] = split_digits(str, (*mdata)->line_len);
 		free(str);
+		print_line((*mdata)->matrix[i]);
 		i++;
 	}
 	(*mdata)->matrix[i] = NULL;
+	print_map_matrix(*mdata);
 }

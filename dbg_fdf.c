@@ -2,20 +2,20 @@
 
 void	print_map_matrix(t_map *mdata)
 {
-	int	i;
+	size_t	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	while (mdata->matrix[i])
+	i = (*mdata).line_num;
+	j = (*mdata).line_len;
+	while (i)
 	{
-		while (mdata->matrix[i][j])
+		while (j)
 		{
 			printf("%i", mdata->matrix[i][j]);
-			j++;
+			j--;
 		}
 		write(1, "\n", 1);
-		i++;
+		i--;
 	}
 }
 

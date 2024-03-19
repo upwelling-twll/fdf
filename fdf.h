@@ -1,5 +1,9 @@
 # ifndef FDF_H
 # define FDF_H
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include "libft/libft.h"
 
 typedef struct s_data
 {
@@ -9,5 +13,20 @@ typedef struct s_data
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef	struct s_map
+{
+	size_t	line_len;
+	int	line_num;
+
+	int	**matrix;	
+}				t_map;
+
+//parsing.c
+size_t	get_line_len(char *str);
+int	parse_map(int fd, t_map **mdata);
+
+//dbg_fdf.c
+void	print_pars_result(t_map *map);
 
 #endif

@@ -11,43 +11,22 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int main (void)
+int fdf(int	fd)
 {
-	void	*mlx;
-	void	*mlx_win;
-	t_data	img;
-	int 	x;
-	int		y;
-	//int		z;
-	float		sin_alf;
+	t_map	*mdata;
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1000, 1000, "Hakuna Matata!");
-	img.img = mlx_new_image(mlx, 1000, 1000);
-	img.addr = mlx_get_data_addr(img.img, &(img.bits_per_pix), &(img.line_length), &(img.endian));
-	x = 100;
-	y = 100;
-//	z = 0;
-	sin_alf = 0.5;
+	if (parse_map(fd, &mdata))
+		return (0);	
+	//print_map(mdata);
+	return (0);
+}
 
-	my_mlx_pixel_put(&img, 100, x, 0x00FF0000);
-	while (x < 400)
-	{
-		my_mlx_pixel_put(&img, 100, x, 0x00FF0000);
-		x++;
-	}
-	while (y < 300)
-	{
-		my_mlx_pixel_put(&img, y, 400, 0x00FF0000);
-		y++;
-	}
-	x = 100;
-	while (x < 700)
-	{
-		my_mlx_pixel_put(&img, 300, x, 0x00FF0000);
-		x++;
-	}
-	
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+int	main(void)
+{
+	int fd;
+
+	fd = open("file.txt", O_RDONLY);
+	fdf(fd);
+	close(fd);
+	return (0);
 }

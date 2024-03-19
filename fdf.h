@@ -22,16 +22,23 @@ typedef	struct s_map
 	int	**matrix;	
 }				t_map;
 
+//save_map.c
+int		*split_digits(char *str, size_t len);
+void	save_map(int fd, t_map **mdata);
+
 //parsing.c
+int		matrix_nums_only(char *str);
 size_t	get_line_len(char *str);
 int		parse_map(int fd, t_map **mdata);
 int		check_fd(int fd);
 char	*get_file(char *argv);
 
 //exit.c
+void	*clean_saved_map(t_map **mdata);
 int		exit_fdf(t_map **mdata, int error);
 
 //dbg_fdf.c
+void	print_map_matrix(t_map *mdata);
 void	print_pars_result(t_map *map);
 
 #endif

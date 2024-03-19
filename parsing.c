@@ -15,14 +15,14 @@ size_t	get_line_len(char *str)
 	return (-1);
 }
 
-int	nums_only(char *str)
+int	matrix_nums_only(char *str)
 {
 	size_t	i;
 	size_t	len;
 
 	i = 0;
 	len = ft_strlen(str);
-	while (i < len-1)
+	while (i < len - 1)
 	{
 		if (!(ft_isdigit(str[i])))
 			return (1);
@@ -42,7 +42,7 @@ int	parse_map(int fd, t_map **mdata)
 		*mdata = malloc(sizeof(t_map));
 		(*mdata)->line_num = 1;
 		(*mdata)->line_len =  get_line_len(str);
-		if ((*mdata)->line_len <= 0 || nums_only(str))
+		if ((*mdata)->line_len <= 0 || matrix_nums_only(str))
 			return (1);
 	}
 	else
@@ -50,7 +50,7 @@ int	parse_map(int fd, t_map **mdata)
 	while ((str = get_next_line(fd)) != NULL)
 	{
 		cur_len = get_line_len(str);
-		if (cur_len != (*mdata)->line_len || nums_only(str))
+		if (cur_len != (*mdata)->line_len || matrix_nums_only(str))
 			return (1);
 		(*mdata)->line_len = cur_len;
 		(*mdata)->line_num++;

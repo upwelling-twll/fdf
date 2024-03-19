@@ -11,28 +11,29 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int fdf(int	fd)
-{
-	t_map	*mdata;
+// int fdf(int	fd)
+// {
 
-	if (check_fd(fd) || parse_map(fd, &mdata))
-		return (exit_fdf(&mdata, 1));
-	//print_map(mdata);
-	return (0);
-}
+// }
 
 int	main(int argc, char *argv[])
 {
 	char	*file;
 	int 	fd;
+	t_map	*mdata;
 
 	if (argc != 2)
 		return (1);
+	argv++;
 	file = get_file(*argv);
+	printf("file name:%s\n", file);
 	fd = open(file, O_RDONLY);
-//	fd = open("folder", O_RDONLY);
-	if (fdf(3))
-		write(2, "ERROR to main\n", 15);
+	if (check_fd(fd) || parse_map(fd, &mdata))
+		return (exit_fdf(&mdata, 1));
 	close(fd);
-	return (0);
+	fd = open(file, O_RDONLY);
+	save_map(fd, &mdata);
+	print_map_matrix(*mdata);
+	close(fd);
+	return (exit_fdf(&mdata, 0));
 }

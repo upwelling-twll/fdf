@@ -15,18 +15,24 @@ int fdf(int	fd)
 {
 	t_map	*mdata;
 
-	if (parse_map(fd, &mdata))
-		return (0);	
+	if (check_fd(fd) || parse_map(fd, &mdata))
+		return (exit_fdf(&mdata, 1));
 	//print_map(mdata);
 	return (0);
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	int fd;
+	char	*file;
+	int 	fd;
 
-	fd = open("file.txt", O_RDONLY);
-	fdf(fd);
+	if (argc != 2)
+		return (1);
+	file = get_file(*argv);
+	fd = open(file, O_RDONLY);
+//	fd = open("folder", O_RDONLY);
+	if (fdf(3))
+		write(2, "ERROR to main\n", 15);
 	close(fd);
 	return (0);
 }

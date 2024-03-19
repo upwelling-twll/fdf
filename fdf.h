@@ -24,7 +24,12 @@ typedef	struct s_map
 
 //parsing.c
 size_t	get_line_len(char *str);
-int	parse_map(int fd, t_map **mdata);
+int		parse_map(int fd, t_map **mdata);
+int		check_fd(int fd);
+char	*get_file(char *argv);
+
+//exit.c
+int		exit_fdf(t_map **mdata, int error);
 
 //dbg_fdf.c
 void	print_pars_result(t_map *map);

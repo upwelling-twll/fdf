@@ -6,11 +6,11 @@ CC = cc
 
 RM = rm -f
 
-SRC = main.c parsing.c dbg_fdf.c
+SRC = main.c parsing.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -O3 #-g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -O3 -g -fsanitize=address
 
 LIBS :=
 ifeq ($(UNAME_S),Darwin) # MacOS

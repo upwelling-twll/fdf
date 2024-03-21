@@ -5,18 +5,21 @@ void	print_map_matrix(t_map *mdata)
 	size_t	i;
 	int	j;
 
-	i = (*mdata).line_num;
-	j = (*mdata).line_len;
-	while (i)
-	{
-		while (j)
-		{
-			printf("%i", mdata->matrix[i][j]);
-			j--;
-		}
-		write(1, "\n", 1);
-		i--;
-	}
+	i = 0;
+	j = 0;
+	printf("\n***		matrix		***\n");
+	//printf("%i", mdata->matrix[9][9]);
+	printf("%i", mdata->line_num);
+	// while (i < mdata->line_num)
+	// {
+	// 	while (j < mdata->line_len)
+	// 	{
+	// 		printf("%i", mdata->matrix[i][j]);
+	// 		j++;
+	// 	}
+	// 	write(1, "\n", 1);
+	// 	i++;
+	// }
 }
 
 void	print_pars_result(t_map *map)

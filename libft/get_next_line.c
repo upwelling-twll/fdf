@@ -118,7 +118,7 @@ char	*fill_buf(char **rem_line, char **buf, ssize_t *fe, int fd)
 	(*buf)[*fe] = '\0';
 	return (*buf);
 }
-
+#include <stdio.h>
 char	*get_next_line(int fd)
 {
 	char		*buf;
@@ -138,6 +138,7 @@ char	*get_next_line(int fd)
 			return (exit_program(base_bits, &buf, NULL));
 		if (fe <= 0)
 			break ;
+		printf("buff:%s\n", buf);
 		fe = parse_one_bit(&base_bits, buf, &rem_line, &fe);
 		if (fe < 0)
 			return (exit_program(base_bits, &buf, NULL));

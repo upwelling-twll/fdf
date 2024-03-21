@@ -6,9 +6,9 @@ int	*split_digits(char *str, size_t len)
 	size_t	i;
 
 	i = 0;
-	arr = malloc(sizeof(int) * len + 1);
+	arr = malloc(sizeof(int) * (len + 1));
 	printf("str=%s, len = %lu\n", str, len);
-	while(str[i] != '\n')
+	while(str[i] != '\n' && str[i] != '\0')
 	{
 		arr[i] = str[i] - '0';
 		i++;
@@ -34,13 +34,16 @@ void	save_map(int fd, t_map **mdata)
 	int		i;
 
 	i = 0;
-	(*mdata)->matrix = malloc(sizeof(int *) * ((*mdata)->line_num) + 1);
+	(*mdata)->matrix = malloc(sizeof(int *) * ((*mdata)->line_num + 1));
+	printf("\nsizeof matrix=%lu\n", sizeof((*mdata)->matrix));
 	while ((str = get_next_line(fd)) != NULL)
 	{
-		printf("sizeof matrix=%lu\n", sizeof((*mdata)->matrix));
+		// printf("\nstr=%s\n", str);
+		printf("\nsizeof matrix=%lu\n", sizeof((*mdata)->matrix));
 		(*mdata)->matrix[i] = split_digits(str, (*mdata)->line_len);
 		free(str);
-		print_line((*mdata)->matrix[i]);
+		printf("while save_map:");
+		// print_line((*mdata)->matrix[i]);
 		i++;
 	}
 	(*mdata)->matrix[i] = NULL;

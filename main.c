@@ -22,6 +22,7 @@ int	main(int argc, char *argv[])
 	int 	fd;
 	t_map	*mdata;
 
+	mdata = NULL;
 	if (argc != 2)
 		return (1);
 	argv++;
@@ -32,8 +33,11 @@ int	main(int argc, char *argv[])
 		return (exit_fdf(&mdata, 1));
 	close(fd);
 	fd = open(file, O_RDONLY);
+	printf("line_num in main:%i\n", mdata->line_num);
 	save_map(fd, &mdata);
 	//print_map_matrix(mdata);
 	close(fd);
-	return (exit_fdf(&mdata, 0));
+	//free(mdata->matrix);
+	return (0);
+	//return (exit_fdf(&mdata, 0));
 }

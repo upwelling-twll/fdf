@@ -3,18 +3,19 @@
 void	*clean_saved_map(t_map **mdata)
 {
 	size_t	i;
-	int		**arr;
+	//int		**arr;
 	size_t	n;
 
-	arr = (*mdata)->matrix;
+	//arr = (*mdata)->matrix;
+	printf("line_num in main:%i", (*mdata)->line_num);
 	n = (*mdata)->line_num;
-	if (arr)
+	if ((*mdata)->matrix && (*mdata)->matrix[i])
 	{
 		i = 0;
 		while (i < n)
 		{
-			if (arr[i] != NULL)
-				free(arr[i]);
+			if ((*mdata)->matrix[i] != NULL)
+				free((*mdata)->matrix[i]);
 			i++;
 		}
 		//free(arr);

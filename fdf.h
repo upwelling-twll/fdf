@@ -22,6 +22,9 @@ typedef	struct s_map
 	int	**matrix;	
 }				t_map;
 
+//fdf_split.c
+char	**fdf_split(size_t *len, char const *s, char c);
+
 //save_map.c
 int		*split_digits(char *str, size_t len);
 void	save_map(int fd, t_map **mdata);

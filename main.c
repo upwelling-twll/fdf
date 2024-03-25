@@ -11,10 +11,6 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-// int fdf(int	fd)
-// {
-
-// }
 
 int	main(int argc, char *argv[])
 {
@@ -28,8 +24,7 @@ int	main(int argc, char *argv[])
 	argv++;
 	file = get_file(*argv);
 	printf("file name:%s\n", file);
-	fd = open(file, O_RDONLY);
-	if (check_fd(fd) || parse_map(fd, &mdata))
+	if (parse_map(file, &mdata))
 		return (exit_fdf(&mdata, 1));
 	close(fd);
 	fd = open(file, O_RDONLY);

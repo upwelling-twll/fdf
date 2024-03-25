@@ -1,17 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 13:45:01 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/03/08 18:11:07 by nmagdano         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "fdf.h"
 
-#include "libft.h"
-#include <stdio.h>
 static size_t	ft_sepamount(const char *s, char c)
 {
 	size_t	a;
@@ -31,7 +19,6 @@ static size_t	ft_sepamount(const char *s, char c)
 	}
 	if (i > 0 && s[i - 1] == c)
 		a--;
-	printf("a=%zu\n", a);
 	return (a);
 }
 
@@ -105,13 +92,14 @@ static char	**ft_fillstr(char **str, const char *s, char c)
 	return (str);
 }
 
-char	**ft_split(char const *s, char c)
+char	**fdf_split(size_t *len, char const *s, char c)
 {
 	char	**str;
 
 	if (s == NULL)
 		return (NULL);
-	str = malloc(sizeof(char *) * (ft_sepamount(s, c) + 1));
+	(*len) = ft_sepamount(s, c);
+	str = malloc(sizeof(char *) * (*len) + 1);
 	if (str == NULL)
 		return (NULL);
 	if (ft_fillstr(str, s, c) == NULL)
@@ -119,6 +107,5 @@ char	**ft_split(char const *s, char c)
 		free(str);
 		str = NULL;
 	}
-	printf("ok\n");
 	return (str);
 }

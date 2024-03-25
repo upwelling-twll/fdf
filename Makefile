@@ -6,7 +6,7 @@ CC = cc
 
 RM = rm -f
 
-SRC = main.c parsing.c save_map.c exit.c dbg_fdf.c
+SRC = main.c parsing.c fdf_split.c save_map.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 

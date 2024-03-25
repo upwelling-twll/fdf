@@ -1,83 +1,101 @@
 #include "fdf.h"
 
-size_t	get_line_len(char *str)
+int	get_line_num(char *file)
 {
-	size_t	len;
+	int		fd;
+	int 	n;
+	char	*str;
 
-	if (str && str[0] != '\0' && str[0] != '\n')
+	n = 0;
+	if (fd = open(file, O_RDONLY) < 2)
+		return (-1);
+	while (str = get_next_line(file))
 	{
-		len = ft_strlen(str);
-		if (str[len-1] == '\n')
-			return (len-1);
-		else
-			return (len);
+		n++;
+		free(str);
 	}
-	return (-1);
+	close(fd);
+	return (n);
 }
 
-int	matrix_nums_only(char *str)
+int	get_line_len(char *file)
 {
-	size_t	i;
-	size_t	len;
+	int		fd;
+	int 	n;
+	char	*str;
+	char	**arr;
 
-	i = 0;
-	len = ft_strlen(str);
-	printf("will check nums only\n");
-	while (i < len - 1)
+	n = 0;
+	if (fd = open(file, O_RDONLY) < 2)
+		return (-1);
+	if (str = get_next_line(file) != NULL)
 	{
-		if (!(ft_isdigit(str[i]))
-			return (1);
-		i++;
+		while
 	}
-	free(str);
-	return (0);
-}	
+	clode(fd);
+	return (n);
+}
 
 int	parse_map(int fd, t_map **mdata)
 {
-	char	*str;
-	size_t	cur_len;
-
-	str = get_next_line(fd);
-	if ((str != NULL && str[0] != '\n'))
-	{
-		*mdata = malloc(sizeof(t_map));
-		(*mdata)->line_num = 1;
-		(*mdata)->line_len =  get_line_len(str);
-		if ((*mdata)->line_len <= 0 || matrix_nums_only(str))
-		{
-			free (str);
-			return (1);
-		}
-	}
+	int		i;
+	
+	i = 0;
+	*mdata = malloc(sizeof(t_map));
+	if (i = get_line_num(fd) > 0)
+		(*mdata)->line_num = i;
+	if (i = get_line_len(fd) > 0)
+		(*mdata)->line_len = i;
 	else
 		return (1);
-	while ((str = get_next_line(fd)) != NULL)
-	{
-		cur_len = get_line_len(str);
-		if (cur_len != (*mdata)->line_len || matrix_nums_only(str))
-		{
-			free (str);
-			return (1);
-		}
-		(*mdata)->line_num++;
-	}
+	if (fill_matrix(mdata))
+		return (1);
 	return (0);
 }
 
-int	check_fd(int fd)
+void	clean_split(char **arr, size_t n)
 {
-	if (fd <= 0)
-		return (1);
-	return (0);
+	size_t	i;
+
+	if (*arr)
+	{
+		i = 0;
+		while (i < n)
+		{
+			if (*arr != NULL)
+				free(*arr);
+			arr++;
+			i++;
+		}
+		//free(arr);
+	}
+	return ;
 }
 
 char	*get_file(char *argv)
 {
 	char	*file;
+	char	**fparts;
+	int		n;
 
-	file = argv;
+	n = 0;
 	if (argv)
-		return (file);
+	{
+		file = argv;
+		fparts = ft_split(file, '.');
+		while (fparts[n] != NULL)
+			n++;
+		printf("n=%i\n", n);
+		if (n == 2 && (!ft_strncmp(fparts[1], "fdf", ft_strlen(fparts[1]))))
+		{
+			clean_split(fparts, n);
+			return (file);
+		}
+		else
+		{
+			clean_split(fparts, n);
+			return (NULL);
+		}
+	}
 	return (NULL);
 }

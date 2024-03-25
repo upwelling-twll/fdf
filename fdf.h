@@ -38,6 +38,7 @@ void	*clean_saved_map(t_map **mdata);
 int		exit_fdf(t_map **mdata, int error);
 
 //dbg_fdf.c
+void	print_line(int *line);
 void	print_map_matrix(t_map *mdata);
 void	print_pars_result(t_map *map);
 

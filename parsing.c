@@ -22,9 +22,10 @@ int	matrix_nums_only(char *str)
 
 	i = 0;
 	len = ft_strlen(str);
+	printf("will check nums only\n");
 	while (i < len - 1)
 	{
-		if (!(ft_isdigit(str[i])))
+		if (!(ft_isdigit(str[i]))
 			return (1);
 		i++;
 	}
@@ -37,13 +38,17 @@ int	parse_map(int fd, t_map **mdata)
 	char	*str;
 	size_t	cur_len;
 
-	if ((str = get_next_line(fd)) != NULL)
+	str = get_next_line(fd);
+	if ((str != NULL && str[0] != '\n'))
 	{
 		*mdata = malloc(sizeof(t_map));
 		(*mdata)->line_num = 1;
 		(*mdata)->line_len =  get_line_len(str);
 		if ((*mdata)->line_len <= 0 || matrix_nums_only(str))
+		{
+			free (str);
 			return (1);
+		}
 	}
 	else
 		return (1);
@@ -51,11 +56,12 @@ int	parse_map(int fd, t_map **mdata)
 	{
 		cur_len = get_line_len(str);
 		if (cur_len != (*mdata)->line_len || matrix_nums_only(str))
+		{
+			free (str);
 			return (1);
-		(*mdata)->line_len = cur_len;
+		}
 		(*mdata)->line_num++;
 	}
-	print_pars_result(*mdata);
 	return (0);
 }
 
@@ -63,7 +69,6 @@ int	check_fd(int fd)
 {
 	if (fd <= 0)
 		return (1);
-	printf("fd=%i\n", fd);
 	return (0);
 }
 
@@ -73,6 +78,6 @@ char	*get_file(char *argv)
 
 	file = argv;
 	if (argv)
-		return (argv);
+		return (file);
 	return (NULL);
 }

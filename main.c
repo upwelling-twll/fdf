@@ -33,11 +33,11 @@ int	main(int argc, char *argv[])
 		return (exit_fdf(&mdata, 1));
 	close(fd);
 	fd = open(file, O_RDONLY);
-	printf("line_num in main:%i\n", mdata->line_num);
 	save_map(fd, &mdata);
-	//print_map_matrix(mdata);
+	print_map_matrix(mdata);
 	close(fd);
 	//free(mdata->matrix);
+	exit_fdf(&mdata, 0);
 	return (0);
 	//return (exit_fdf(&mdata, 0));
 }

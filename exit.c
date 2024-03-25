@@ -9,6 +9,7 @@ void	*clean_saved_map(t_map **mdata)
 	//arr = (*mdata)->matrix;
 	printf("line_num in main:%i", (*mdata)->line_num);
 	n = (*mdata)->line_num;
+	i = 0;
 	if ((*mdata)->matrix && (*mdata)->matrix[i])
 	{
 		i = 0;
@@ -18,22 +19,22 @@ void	*clean_saved_map(t_map **mdata)
 				free((*mdata)->matrix[i]);
 			i++;
 		}
-		//free(arr);
+		free((*mdata)->matrix);
 	}
 	return (NULL);
 }
 
 int	exit_fdf(t_map **mdata, int error)
 {
-	if ((*mdata)->matrix)
-		clean_saved_map(mdata);
+	// if ((*mdata)->matrix)
+	// 	clean_saved_map(mdata);
 	// printf("%p\n", *mdata);
 	// 	printf("%p\n", (*mdata)->matrix);
-	// if (*mdata)
-	// 	(free(mdata));
+	if (*mdata)
+		(free(*mdata));
 	if (error)
 	{
-		write(2, "ERROR\n", 6);
+		printf("error\n");
 		return (1);
 	}	
 	return (0);

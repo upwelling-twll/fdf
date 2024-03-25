@@ -1,25 +1,31 @@
 #include "fdf.h"
 
+void	print_line(int *line)
+{
+	int i = 0;
+
+	while (i < 12)
+	{
+		printf("%i", line[i]);
+		i++;
+	}
+}
+
 void	print_map_matrix(t_map *mdata)
 {
 	size_t	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	printf("\n***		matrix		***\n");
 	//printf("%i", mdata->matrix[9][9]);
-	printf("%i", mdata->line_num);
-	// while (i < mdata->line_num)
-	// {
-	// 	while (j < mdata->line_len)
-	// 	{
-	// 		printf("%i", mdata->matrix[i][j]);
-	// 		j++;
-	// 	}
-	// 	write(1, "\n", 1);
-	// 	i++;
-	// }
+	printf("mdata->line_num:%i\n", mdata->line_num);
+	printf("mdata->line_len:%li\n", mdata->line_len);
+	while ((mdata)->matrix[i])
+	{
+		print_line((mdata)->matrix[i]);
+		printf("\n");
+		i++;
+	}
 }
 
 void	print_pars_result(t_map *map)

@@ -10,7 +10,7 @@ SRC = main.c parsing.c save_map.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = #-Wall -Wextra -Werror -O3 #-g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror -O3
 
 LIBS :=
 ifeq ($(UNAME_S),Darwin) # MacOS
@@ -23,23 +23,23 @@ else ifeq ($(UNAME_S),Linux) # Linux
 endif
 
 %.o: %.c
-	$(CC) $(FLAGS) -Imlx -c $< -o $@
+	$(CC) $(FLAGS) -Imlx -c $< -o $@ >/dev/null
 
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(OBJ) $(LIBS) -o $(NAME) libft/*.o
+	$(CC) $(OBJ) -g3 -fsanitize=address $(LIBS) -o $(NAME) libft/*.o
 
 libft:
-	@ make -C libft/
+	@ make -C libft/ >/dev/null
 
 clean: 
 		@ $(RM) $(OBJ)
-		@ make -C libft/ clean
+		@ make -C libft/ clean >/dev/null
 
 fclean: clean
 		@ $(RM) $(NAME)
-		@ make -C libft/ fclean
+		@ make -C libft/ fclean >/dev/null
 
 re: fclean all
 

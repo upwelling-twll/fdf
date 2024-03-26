@@ -1,33 +1,35 @@
 #include "fdf.h"
 
-void	*clean_saved_map(t_map **mdata)
+void	*clean_matrix(t_map **mdata)
 {
 	size_t	i;
-	//int		**arr;
 	size_t	n;
 
-	//arr = (*mdata)->matrix;
-	printf("line_num in main:%i", (*mdata)->line_num);
+	printf("line_num in main:%i\n", (*mdata)->line_num);
+	printf("clean matrix\n");
 	n = (*mdata)->line_num;
 	i = 0;
-	if ((*mdata)->matrix && (*mdata)->matrix[i])
+	if (n)
 	{
-		i = 0;
+		printf("will clean\n");
 		while (i < n)
 		{
-			if ((*mdata)->matrix[i] != NULL)
-				free((*mdata)->matrix[i]);
+			printf("cleaning\n");
+			free((*mdata)->matrix[i]);
 			i++;
 		}
-		free((*mdata)->matrix);
 	}
+	free((*mdata)->matrix);
 	return (NULL);
 }
 
 int	exit_fdf(t_map **mdata, int error)
 {
-	// if ((*mdata)->matrix)
-	// 	clean_saved_map(mdata);
+	if ((*mdata)->matrix)
+	{
+		printf("matrix\n");
+		clean_matrix(mdata);
+	}
 	// printf("%p\n", *mdata);
 	// 	printf("%p\n", (*mdata)->matrix);
 	if (*mdata)

@@ -31,7 +31,6 @@ static size_t	ft_sepamount(const char *s, char c)
 	}
 	if (i > 0 && s[i - 1] == c)
 		a--;
-	printf("a=%zu\n", a);
 	return (a);
 }
 
@@ -111,6 +110,7 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
+	printf("sep_amount:%zu\n", ft_sepamount(s, c));
 	str = malloc(sizeof(char *) * (ft_sepamount(s, c) + 1));
 	if (str == NULL)
 		return (NULL);
@@ -119,6 +119,5 @@ char	**ft_split(char const *s, char c)
 		free(str);
 		str = NULL;
 	}
-	printf("ok\n");
 	return (str);
 }

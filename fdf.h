@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include "libft/libft.h"
+#include "mlx/mlx.h"
 
 typedef struct s_data
 {
@@ -23,7 +24,7 @@ typedef	struct s_map
 }				t_map;
 
 //fdf_split.c
-char	**fdf_split(size_t *len, char const *s, char c);
+char	**fdf_split(char const *s, char c);
 
 //save_map.c
 int		*split_digits(char *str, size_t len);
@@ -31,8 +32,8 @@ void	save_map(int fd, t_map **mdata);
 
 //parsing.c
 int		matrix_nums_only(char *str);
-size_t	get_line_len(char *str);
-int		parse_map(int fd, t_map **mdata);
+int		get_line_len(char *file);
+int		parse_map(char *file, t_map **mdata);
 int		check_fd(int fd);
 char	*get_file(char *argv);
 
@@ -41,7 +42,7 @@ void	*clean_saved_map(t_map **mdata);
 int		exit_fdf(t_map **mdata, int error);
 
 //dbg_fdf.c
-void	print_line(int *line);
+void	print_line(int *line, size_t len);
 void	print_map_matrix(t_map *mdata);
 void	print_pars_result(t_map *map);
 

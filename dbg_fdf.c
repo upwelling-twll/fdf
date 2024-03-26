@@ -1,12 +1,13 @@
 #include "fdf.h"
 
-void	print_line(int *line)
+void	print_line(int *line, size_t len)
 {
-	int i = 0;
+	size_t i = 0;
 
-	while (i < 12)
+	while (i < len)
 	{
-		printf("%i", line[i]);
+		printf("%3d", line[i]);
+		printf(" ");
 		i++;
 	}
 }
@@ -22,7 +23,7 @@ void	print_map_matrix(t_map *mdata)
 	printf("mdata->line_len:%li\n", mdata->line_len);
 	while ((mdata)->matrix[i])
 	{
-		print_line((mdata)->matrix[i]);
+		print_line((mdata)->matrix[i], (mdata)->line_len);
 		printf("\n");
 		i++;
 	}

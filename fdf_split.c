@@ -92,14 +92,13 @@ static char	**ft_fillstr(char **str, const char *s, char c)
 	return (str);
 }
 
-char	**fdf_split(size_t *len, char const *s, char c)
+char	**fdf_split(char const *s, char c)
 {
 	char	**str;
 
 	if (s == NULL)
 		return (NULL);
-	(*len) = ft_sepamount(s, c);
-	str = malloc(sizeof(char *) * (*len) + 1);
+	str = malloc(sizeof(char *) * ft_sepamount(s, c) + 1);
 	if (str == NULL)
 		return (NULL);
 	if (ft_fillstr(str, s, c) == NULL)

@@ -28,7 +28,7 @@ endif
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(OBJ) -g3 -fsanitize=address $(LIBS) -o $(NAME) libft/*.o
+	$(CC) -g3 -fsanitize=address $(OBJ) $(LIBS) -o $(NAME) libft/*.o
 
 libft:
 	@ make -C libft/ >/dev/null

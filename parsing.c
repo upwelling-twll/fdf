@@ -142,30 +142,60 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 int	fill_matrix(t_map **mdata, char *file)
 {
 	int		i;
-	int		fd;
-	char	*str;
+//	int		fd;
+//	char	*str;
 
 	i = 0;
-	(*mdata)->matrix = malloc(sizeof(int*) * ((*mdata)->line_num + 1));
-	while (i <= (*mdata)->line_num - 1)
+	if (!file)
+		return (1);
+	(*mdata)->matrix = (int**)malloc(sizeof(int*) * 5);
+	int j = 0;
+	printf("JI\n");
+	while(i < 4)
 	{
-		(*mdata)->matrix[i] = (int*)malloc(sizeof(int) * ((*mdata)->line_len));
+		(*mdata)->matrix[i] = (int*)malloc(sizeof(int)*8);
 		i++;
 	}
-	i = 0;
-	fd = open(file, O_RDONLY);
-	while ((str = get_next_line(fd)) != NULL)
+	for (j = 0; j < 8; j++) 
 	{
-		if (copy_to_matrix((*mdata)->matrix[i], str, (*mdata)->line_len))
-		{
-			close(fd);
-			return (1);
-		}
-		i++;
-		free(str);
+   		 (*mdata)->matrix[0][j] = 0;
 	}
-	(*mdata)->matrix[i] = NULL;
-	close(fd);
+	for (j = 0; j < 8; j++) 
+	{
+   		(*mdata)->matrix[1][j] = 2;
+	}
+	for (j = 0; j < 8; j++) 
+	{
+   		 (*mdata)->matrix[2][j] = 3;
+	}
+	for (j = 0; j < 8; j++) 
+	{
+   		 (*mdata)->matrix[3][j] = 0;
+	}
+	 (*mdata)->matrix[4] = NULL;
+	 (*mdata)->line_num = 4;
+	 (*mdata)->line_len = 8;
+
+	// (*mdata)->matrix = (int**)malloc(sizeof(int*) * ((*mdata)->line_num + 1));
+	// while (i <= (*mdata)->line_num)
+	// {
+	// 	(*mdata)->matrix[i] = (int*)malloc(sizeof(int) * ((*mdata)->line_len));
+	// 	i++;
+	// }
+	// i = 0;
+	// fd = open(file, O_RDONLY);
+	// while ((str = get_next_line(fd)) != NULL)
+	// {
+	// 	if (copy_to_matrix((*mdata)->matrix[i], str, (*mdata)->line_len))
+	// 	{
+	// 		close(fd);
+	// 		return (1);
+	// 	}
+	// 	i++;
+	// 	free(str);
+	// }
+	// (*mdata)->matrix[i] = NULL;
+	//close(fd);
 	return (0);
 }
 

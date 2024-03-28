@@ -18,8 +18,9 @@ int	continue_drawing(float x, float x1, float y, float y1)
 
 void	add_isometry(float *x, float *y, int z)
 {
-	*x = (*x - *y) * cos(0.8);
-	*y = (*x + *y) *sin(0.8) - z;
+	// *x = (*x - *y) * cos(0.8);
+	// *y = (*x + *y) * sin(0.8) - z;
+	printf("iso x=%f, y=%f, z=%i\n", (*x - *y) * cos(0.8), (*x + *y) * sin(0.8) - z, z);
 }
 
 int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)

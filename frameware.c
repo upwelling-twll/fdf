@@ -30,9 +30,12 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 	int		z;
 	int		z1;
 
+	// printf("mdata sent to frameware\n");
+	// print_map_matrix(mdata);
 	z = mdata->matrix[(int)y][(int)x];
 	z1 = mdata->matrix[(int)y1][(int)x1];
 	//zoom
+	printf("X=%f, Y=%f, Z= %d\n", x, y, z);
 	x = x * mdata->zoom;
 	y = y * mdata->zoom;
 	x1 = x1 * mdata->zoom;
@@ -78,10 +81,17 @@ void	draw_map(t_map *mdata)
 		x = 0;
 		while ((int)x < (int)mdata->line_len)
 		{
+			printf("draw iter: x=%d, y=%d\n", x, y);
 			if ((int)x < (int)mdata->line_len - 1)
+			{
+				printf("print x+1\n");
 				make_frameware(x, x + 1, y, y, mdata); //horisontal line
+			}
 			if (y < mdata->line_num - 1)
+			{
+				printf("print y+1\n");
 				make_frameware(x, x, y, y + 1, mdata); //vertical line
+			}
 			x++;
 		}
 		y++;

@@ -50,12 +50,12 @@ int	main(int argc, char *argv[])
 	//start drawing:
 	mdata->mlx_ptr = mlx_init();
 	mdata->win_ptr = mlx_new_window(mdata->mlx_ptr, 1000, 1000, "FDF");
-	//make_frameware(10, 100, 600, 100, mdata);
+	//make_frameware(5, 5, 16, 16, mdata);
 	mdata -> zoom = 20;
 	draw_map(mdata);
 	mlx_key_hook(mdata->win_ptr, deal_key, mdata); // for bonus
 	mlx_loop(mdata->mlx_ptr); 
-	exit_fdf(&mdata, 0);
+	//exit_fdf(&mdata, 0);
 	return (0);
 	//return (exit_fdf(&mdata, 0));
 }

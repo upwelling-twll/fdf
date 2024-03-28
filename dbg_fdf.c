@@ -20,7 +20,7 @@ void	print_map_matrix(t_map *mdata)
 	printf("\n***		matrix		***\n");
 	//printf("%i", mdata->matrix[9][9]);
 	printf("mdata->line_num:%i\n", mdata->line_num);
-	printf("mdata->line_len:%li\n", mdata->line_len);
+	printf("mdata->line_len:%lu\n", mdata->line_len);
 	while ((mdata)->matrix[i])
 	{
 		print_line((mdata)->matrix[i], (mdata)->line_len);

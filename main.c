@@ -76,6 +76,7 @@ int	main(int argc, char *argv[])
 	//  printf("JI\n");
 	if (parse_map(file, &mdata))
 		return (exit_fdf(&mdata, 1));
+		printf("in main parsed\n");
 	print_map_matrix(mdata);
 	//start drawing:
 	printf("hi\n");
@@ -84,7 +85,7 @@ int	main(int argc, char *argv[])
 	//make_frameware(0, 0, 0, 0, mdata);
 	mdata -> zoom = 20;
 	draw_map(mdata);
-	//mlx_key_hook(mdata->win_ptr, deal_key, mdata); // for bonus
+	mlx_key_hook(mdata->win_ptr, deal_key, mdata); // for bonus
 	mlx_loop(mdata->mlx_ptr); 
 	exit_fdf(&mdata, 0);
 	return (0);

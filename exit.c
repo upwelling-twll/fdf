@@ -25,7 +25,7 @@ void	*clean_matrix(t_map **mdata)
 
 int	exit_fdf(t_map **mdata, int error)
 {
-	if ((*mdata)->matrix)
+	if ((*mdata)->matrix && (*mdata)->line_len > 0 && (*mdata)->line_num > 0)
 	{
 		printf("matrix\n");
 		clean_matrix(mdata);

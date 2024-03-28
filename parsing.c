@@ -4,11 +4,13 @@ void	clean_split(char **arr, size_t n)
 {
 	size_t	i;
 
+	printf("clean split\n");
 	if (*arr)
 	{
 		i = 0;
 		while (i < n)
 		{
+			printf("arr[%lu] =%s$\n", i, *arr);
 			if (*arr != NULL)
 				free(*arr);
 			arr++;
@@ -45,6 +47,7 @@ int	get_line_num(char *file)
 	char	*str;
 
 	n = 0;
+		printf("need num\n");
 	if ((fd = open(file, O_RDONLY)) < 2)
 		return (-1);
 	while ((str = get_next_line(fd)) != NULL)
@@ -53,6 +56,7 @@ int	get_line_num(char *file)
 		free(str);
 	}
 	close(fd);
+	printf("all file gnl\n");
 	return (n);
 }
 
@@ -63,14 +67,17 @@ int	width_split(char *str, char c)
 
 	i = 0;
 	arr = fdf_split(str, c);
-	if (arr[0])
+	printf("ws: have arr\n");
+	if (arr && arr[0])
 	{
 		while (arr[i])
 			i++;
 		printf("ws: i=%i\n", i);
 		clean_split(arr, i);
 	}
-	free(arr);
+	if (arr)
+		free(arr);
+	printf("ws end\n");
 	return (i);
 }
 
@@ -92,17 +99,21 @@ int	get_line_len(char *file)
 		{
 			if (width_split(str, ' ') != len)
 			{
+				printf("probl\n");
 				free(str);
 				return (-1);
 			}
+			printf("fre str\n");
 			free(str);
 		}
+		printf("free str\n");
 	}
 	else
 	{
 		close(fd);
 		return (-1);
 	}
+	printf("all nums len calc\n");
 	close(fd);
 	return (len);
 }
@@ -124,17 +135,17 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 	i = 0;
 	cplen = len;
 	nums_str = ft_split(str, ' ');
-	while (len)
+	while (cplen)
 	{
 		num = ft_atoi(nums_str[i]);
 		if (verify_num(num))
 			return(-1);
 		mtx_line[i] = num;
 		i++;
-		len--;
+		cplen--;
 	}
 //	printf("gonna cleanall solit\n");
-	clean_all_split(nums_str, cplen);
+	clean_all_split(nums_str, len);
 	free(nums_str);
 	return (0);
 }
@@ -142,60 +153,36 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 int	fill_matrix(t_map **mdata, char *file)
 {
 	int		i;
-//	int		fd;
-//	char	*str;
+	int		fd;
+	char	*str;
 
-	i = 0;
-	if (!file)
-		return (1);
-	(*mdata)->matrix = (int**)malloc(sizeof(int*) * 5);
-	int j = 0;
-	printf("JI\n");
-	while(i < 4)
+	 i = 0;
+	printf("fill_martix\n line_num=%i, line_len=%lu\n", (*mdata)->line_num, (*mdata)->line_len);
+	(*mdata)->matrix = (int**)malloc(sizeof(int*) * ((*mdata)->line_num) + 1);
+	while (i <= (*mdata)->line_num)
 	{
-		(*mdata)->matrix[i] = (int*)malloc(sizeof(int)*8);
+		(*mdata)->matrix[i] = (int*)malloc(sizeof(int) * ((*mdata)->line_len));
 		i++;
 	}
-	for (j = 0; j < 8; j++) 
+	i = 0;
+	fd = open(file, O_RDONLY);
+	while ((str = get_next_line(fd)) != NULL)
 	{
-   		 (*mdata)->matrix[0][j] = 0;
+		printf("line_len=%lu\n", (*mdata)->line_len);
+		if (copy_to_matrix((*mdata)->matrix[i], str, (*mdata)->line_len))
+		{
+			close(fd);
+			return (1);
+		}
+		i++;
+		free(str);
+		printf("all matrix filled\n");
 	}
-	for (j = 0; j < 8; j++) 
-	{
-   		(*mdata)->matrix[1][j] = 2;
-	}
-	for (j = 0; j < 8; j++) 
-	{
-   		 (*mdata)->matrix[2][j] = 3;
-	}
-	for (j = 0; j < 8; j++) 
-	{
-   		 (*mdata)->matrix[3][j] = 0;
-	}
-	 (*mdata)->matrix[4] = NULL;
-	 (*mdata)->line_num = 4;
-	 (*mdata)->line_len = 8;
-
-	// (*mdata)->matrix = (int**)malloc(sizeof(int*) * ((*mdata)->line_num + 1));
-	// while (i <= (*mdata)->line_num)
-	// {
-	// 	(*mdata)->matrix[i] = (int*)malloc(sizeof(int) * ((*mdata)->line_len));
-	// 	i++;
-	// }
-	// i = 0;
-	// fd = open(file, O_RDONLY);
-	// while ((str = get_next_line(fd)) != NULL)
-	// {
-	// 	if (copy_to_matrix((*mdata)->matrix[i], str, (*mdata)->line_len))
-	// 	{
-	// 		close(fd);
-	// 		return (1);
-	// 	}
-	// 	i++;
-	// 	free(str);
-	// }
-	// (*mdata)->matrix[i] = NULL;
-	//close(fd);
+	printf("line_len out of cycle=%lu\nmatrix[%i]=null\n", (*mdata)->line_len, i);
+	(*mdata)->matrix[i] = NULL;
+	close(fd);
+	printf("line_len before print_matrix=%lu\n", (*mdata)->line_len);
+	print_map_matrix(*mdata);
 	return (0);
 }
 
@@ -206,14 +193,19 @@ int	parse_map(char *file, t_map **mdata)
 	i = 0;
 	printf("will parse\n");
 	*mdata = malloc(sizeof(t_map));
+	(*mdata)->line_len = 0;
+	(*mdata)->line_num = 0;
 	if ((i = get_line_num(file)) > 0)
 		(*mdata)->line_num = i;
+	printf("got lnum\n");
 	if ((i = get_line_len(file)) > 0)
 		(*mdata)->line_len = i;
 	else
 		return (1);
 	if (fill_matrix(mdata, file))
 		return (1);
+	printf("parse:line_len=%lu\n in parse_map:", (*mdata)->line_len);
+	print_map_matrix(*mdata);
 	return (0);
 }
 

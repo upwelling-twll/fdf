@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 21:49:49 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/03/08 13:32:46 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:05:30 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*fill_buf(char **rem_line, char **buf, ssize_t *fe, int fd)
 	(*buf)[*fe] = '\0';
 	return (*buf);
 }
-
+#include <stdio.h>
 char	*get_next_line(int fd)
 {
 	char		*buf;
@@ -145,5 +145,6 @@ char	*get_next_line(int fd)
 			free(buf);
 	}
 	line = fill_line(base_bits);
+	// printf("gnl line:%s$\n", line);
 	return (exit_program(base_bits, &buf, line));
 }

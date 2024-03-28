@@ -6,7 +6,7 @@ CC = cc
 
 RM = rm -f
 
-SRC = main.c parsing.c fdf_split.c save_map.c exit.c dbg_fdf.c
+SRC = main.c parsing.c frameware.c fdf_split.c save_map.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -28,7 +28,7 @@ endif
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) -g3 -fsanitize=address $(OBJ) $(LIBS) -o $(NAME) libft/*.o
+	$(CC)  $(OBJ) $(LIBS) -o $(NAME) libft/*.o #-g3 -fsanitize=address
 
 libft:
 	@ make -C libft/ >/dev/null

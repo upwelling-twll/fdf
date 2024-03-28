@@ -24,12 +24,12 @@ void	clean_all_split(char **arr, size_t n)
 	size_t	i;
 
 	i = 0;
-	printf("will del str:%s\n", arr[i]);
+	//printf("will del str:%s\n", arr[i]);
 	if (arr[i] && n)
 	{
 		while (arr[i])
 		{
-			printf("will del str:%s\n", arr[i]);
+			//printf("will del str:%s\n", arr[i]);
 			free(arr[i]);
 			i++;
 		}
@@ -63,10 +63,11 @@ int	width_split(char *str, char c)
 
 	i = 0;
 	arr = fdf_split(str, c);
-	if (arr && arr[0])
+	if (arr[0])
 	{
 		while (arr[i])
 			i++;
+		printf("ws: i=%i\n", i);
 		clean_split(arr, i);
 	}
 	free(arr);
@@ -79,6 +80,8 @@ int	get_line_len(char *file)
 	char	*str;
 	int		len;
 
+	len = 0;
+	str = NULL;
 	if ((fd = open(file, O_RDONLY)) < 2)
 		return (-1);
 	if ((str = get_next_line(fd)) != NULL)
@@ -130,7 +133,7 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 		i++;
 		len--;
 	}
-	printf("gonna cleanall solit\n");
+//	printf("gonna cleanall solit\n");
 	clean_all_split(nums_str, cplen);
 	free(nums_str);
 	return (0);

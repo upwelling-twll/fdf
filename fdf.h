@@ -30,6 +30,11 @@ typedef	struct s_map
 
 	int		shift_x;
 	int		shift_y;
+
+	float		rad;
+
+	int		win_height;
+	int		win_wight;
 }				t_map;
 
 //frameware.c

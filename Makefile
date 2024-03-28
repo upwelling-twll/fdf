@@ -10,7 +10,7 @@ SRC = main.c parsing.c frameware.c fdf_split.c save_map.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror -O3
+FLAGS = #-Wall -Wextra -Werror -O3
 
 LIBS :=
 ifeq ($(UNAME_S),Darwin) # MacOS

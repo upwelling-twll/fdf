@@ -1,22 +1,46 @@
 //#include "./mlx_linux/mlx.h"
 //#include "minilibx/mlx.h"
 #include "fdf.h"
-# ifndef SENS
+#ifndef SENS
 # define SENS 20
+#endif
+#ifndef RAD
+# define RAD 0.2
+#endif
+#ifndef ZOOM
+# define ZOOM 5
+#endif
+#ifndef WIN_HI
+# define WIN_HI 1000
+#endif
+#ifndef WIN_WI
+# define WIN_WI 1800
 #endif
 
 int	deal_key(int key, t_map *mdata)
 {
 	ft_printf("%d\n", key);
 
-	if (key == 126) //up
+	if (key == 126 || key == 65364) //up (mac || linux)
 		mdata->shift_y -= SENS;
-	if (key == 125) //down
+	if (key == 125 || key == 65362) //down
 		mdata->shift_y += SENS;
-	if (key == 123) //up
+	if (key == 123 || key == 65363) //right
 		mdata->shift_x -= SENS;
-	if (key == 124) //up
+	if (key == 124 || key == 65361) //left
 		mdata->shift_x += SENS;
+	if (key == 119) //up (linux)
+		mdata->rad -= RAD;
+	if (key == 115) //down
+		mdata->rad += RAD;
+	if (key == 97) //right
+		mdata->rad -= RAD;
+	if (key == 100) //left
+		mdata->rad += RAD;
+	if (key == 65451) //zoom+ linux
+		mdata->zoom += ZOOM;
+	if (key == 65453) //zoom-
+		mdata->zoom -= ZOOM;
 	mlx_clear_window(mdata->mlx_ptr, mdata->win_ptr);
 	draw_map(mdata);
 	return (0);
@@ -44,46 +68,19 @@ int	main(int argc, char *argv[])
 	if ((file = get_file(*argv)) == NULL)
 		return (1);
 	printf("file name:%s\n", file);
-	// mdata = malloc(sizeof(t_map));
-	// mdata->matrix = (int**)malloc(sizeof(int*) * 5);
-	// int i = 0;
-	// int j = 0;
-	// printf("JI\n");
-	// while(i < 4)
-	// {
-	// 	mdata->matrix[i] = (int*)malloc(sizeof(int)*8);
-	// 	i++;
-	// }
-	// for (j = 0; j < 8; j++) 
-	// {
-   	// 	 mdata->matrix[0][j] = 0;
-	// }
-	// for (j = 0; j < 8; j++) 
-	// {
-   	// 	 mdata->matrix[1][j] = 2;
-	// }
-	// for (j = 0; j < 8; j++) 
-	// {
-   	// 	 mdata->matrix[2][j] = 3;
-	// }
-	// for (j = 0; j < 8; j++) 
-	// {
-   	// 	 mdata->matrix[3][j] = 0;
-	// }
-	//  mdata->matrix[4] = NULL;
-	//  (mdata)->line_num = 4;
-	//  (mdata)->line_len = 8;
-	//  printf("JI\n");
 	if (parse_map(file, &mdata))
 		return (exit_fdf(&mdata, 1));
-		printf("in main parsed\n");
+	printf("in main parsed\n");
 	print_map_matrix(mdata);
 	//start drawing:
 	printf("hi\n");
+	mdata->win_height = WIN_HI;
+	mdata->win_wight = WIN_WI;
 	mdata->mlx_ptr = mlx_init();
-	mdata->win_ptr = mlx_new_window(mdata->mlx_ptr, 1000, 1000, "FDF");
+	mdata->win_ptr = mlx_new_window(mdata->mlx_ptr, mdata->win_wight, mdata->win_height, "FDF");
 	//make_frameware(0, 0, 0, 0, mdata);
 	mdata -> zoom = 20;
+	mdata->rad = 0.785398;
 	draw_map(mdata);
 	mlx_key_hook(mdata->win_ptr, deal_key, mdata); // for bonus
 	mlx_loop(mdata->mlx_ptr); 

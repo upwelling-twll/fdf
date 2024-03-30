@@ -36,8 +36,9 @@ int	exit_fdf(t_map **mdata, int error)
 		(free(*mdata));
 	if (error)
 	{
-		printf("error\n");
+		ft_printf("error\n");
 		return (1);
-	}	
+	}
+	exit (0);
 	return (0);
 }

@@ -20,8 +20,8 @@ void	add_isometry(float *x, float *y, int z, t_map *mdata)
 {
 	// 0.785398 is 45 degree in radians
 	*x = (*x - *y) * cos(mdata->rad);
-	*y = (*x + *y) * sin(mdata->rad) - z;
-	//printf("iso x=%f, y=%f, z=%i\n", *x, *y, z);
+	*y = (*x + *y) * sin(mdata->rad) - (z + mdata->iso_grow);
+//	printf("iso x=%f, y=%f, z=%i\n", *x, *y, z);
 }
 
 // int get_light(int start, int end, double percentage)
@@ -51,9 +51,9 @@ void	add_isometry(float *x, float *y, int z, t_map *mdata)
 void	get_color(t_map **mdata, int z, int z1)
 {
 	if ( z > 0 || z1 > 0)
-		(*mdata)->color = 0xffC2185B;
+		(*mdata)->color = 0xff0000; //blue
 	else
-		(*mdata)->color = 0xffffff;
+		(*mdata)->color = 0xffffff; //white
 }
 
 void	zoom(float *x, float *x1, float *y, float *y1, t_map *mdata)
@@ -89,7 +89,7 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 	// printf("mdata sent to frameware\n");
 	// print_map_matrix(mdata);
 	z = mdata->matrix[(int)y][(int)x];
-	z1 = mdata->matrix[(int)y1][(int)x1];
+	z1 = mdata->matrix[(int)y1][(int)x1] ;
 	//zoom
 	zoom(&x, &x1, &y, &y1, mdata);
 	//color
@@ -99,7 +99,7 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 	//isometry
 	add_isometry(&x, &y, z, mdata);
 	add_isometry(&x1, &y1, z1, mdata);
-	//shift
+	//shifti
 	shift_and_centering(&x, &x1, &y, &y1, mdata);
 	// printf("shift X=%f, Y=%f, Z= %d\n", x, y, z);
 	// printf("shift X1=%f, Y1=%f, Z1= %d\n", x1, y1, z1);
@@ -109,15 +109,18 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 	// printf("delta_x: %f\n", delta_x);
 	// printf("delta_y: %f\n", delta_y);
 	int counter = 0;
-	while (fabs(x1 - x) > fabs(delta_x * 2) || fabs(y1 - y) > fabs(delta_y * 2))
+	//while (fabs(x1 - x) > fabs(delta_x * 2) || fabs(y1 - y) > fabs(delta_y * 2))
+	while ((int)(x - x1) || (int)(y - y1))
 	{
-		printf("counter: %i\n, point X=%f, Y=%f, Z= %d\n", counter, x, y, z);
+		//printf("counter: %i\n, point X=%f, Y=%f, Z= %d\n", counter, x, y, z);
 		mlx_pixel_put(mdata->mlx_ptr, mdata->win_ptr, x, y, mdata->color);
 		x += delta_x;
 		y += delta_y;
 		counter++;
-		if (counter > 6)
+		if (x > mdata->win_wight || y > mdata->win_height || y < 0 || x < 0)
 			break;
+		// if (counter > 6)
+		// 	break;
 	}
 	return (0);
 }
@@ -128,22 +131,30 @@ void	draw_map(t_map *mdata)
 	int	y;
 
 	y = 0;
-	while (y < mdata->line_num)
+	// while (y < mdata->line_num)
+	while (mdata->matrix[y])
 	{
 		x = 0;
-		while (x < (int)mdata->line_len)
+		while (1)
+		//while (x < (int)mdata->line_len)
 		{
 			//printf("draw iter: x=%d, y=%d\n", x, y);
-			if (x < (int)mdata->line_len - 1)
-			{
-				//printf("print x+1\n");
-				make_frameware(x, x + 1, y, y, mdata); //horisontal line
-			}
-			if (y < mdata->line_num - 1)
+			//if (x < (int)mdata->line_len - 1)
+			if (mdata->matrix[y + 1])
 			{
 				//printf("print y+1\n");
-				make_frameware(x, x, y, y + 1, mdata); //vertical line
+				//make_frameware(x, x + 1, y, y, mdata); //horisontal line
+				make_frameware(x, x, y + 1, y, mdata);
 			}
+			//if (y < mdata->line_num - 1)
+			if ((x < (int)mdata->line_len - 1))
+			{
+				//printf("print x+1\n");
+				make_frameware(x, x + 1, y, y, mdata);
+				//make_frameware(x, x, y, y + 1, mdata); //vertical line
+			}
+			if (x == (int)mdata->line_len - 1)
+				break;
 			x++;
 		}
 		y++;

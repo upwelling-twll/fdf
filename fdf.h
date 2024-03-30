@@ -35,6 +35,8 @@ typedef	struct s_map
 
 	int		win_height;
 	int		win_wight;
+
+	int		iso_grow;
 }				t_map;
 
 //frameware.c

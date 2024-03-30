@@ -209,6 +209,17 @@ int	parse_map(char *file, t_map **mdata)
 	return (0);
 }
 
+char	*file_exists(char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	printf("fd=%i\n", fd);
+	if (fd >= 3)
+		return (file);
+	return (NULL); 
+}
+
 char	*get_file(char *argv)
 {
 	char	*file;
@@ -227,7 +238,7 @@ char	*get_file(char *argv)
 		{
 			clean_all_split(fparts, n);
 			free(fparts);
-			return (file);
+			return (file_exists(argv));
 		}
 		else
 		{

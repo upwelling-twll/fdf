@@ -14,22 +14,22 @@
 # define WIN_HI 1000
 #endif
 #ifndef WIN_WI
-# define WIN_WI 1800
+# define WIN_WI 1000
 #endif
 
 int	deal_key(int key, t_map *mdata)
 {
 	ft_printf("%d\n", key);
 
-	if (key == 126 || key == 65364) //up (mac || linux)
+	if (key == 126 || key == 65362) //move up (mac || linux)
 		mdata->shift_y -= SENS;
-	if (key == 125 || key == 65362) //down
+	if (key == 125 || key == 65364) //down
 		mdata->shift_y += SENS;
 	if (key == 123 || key == 65363) //right
 		mdata->shift_x -= SENS;
 	if (key == 124 || key == 65361) //left
 		mdata->shift_x += SENS;
-	if (key == 119) //up (linux)
+	if (key == 119) //rotate up (linux)
 		mdata->rad -= RAD;
 	if (key == 115) //down
 		mdata->rad += RAD;
@@ -41,6 +41,8 @@ int	deal_key(int key, t_map *mdata)
 		mdata->zoom += ZOOM;
 	if (key == 65453) //zoom-
 		mdata->zoom -= ZOOM;
+	// if (key == 65307) //escape
+	// 	return(0);
 	mlx_clear_window(mdata->mlx_ptr, mdata->win_ptr);
 	draw_map(mdata);
 	return (0);

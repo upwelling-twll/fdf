@@ -108,12 +108,16 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 	delta_y = (y1 - y) / max;
 	// printf("delta_x: %f\n", delta_x);
 	// printf("delta_y: %f\n", delta_y);
+	int counter = 0;
 	while (fabs(x1 - x) > fabs(delta_x * 2) || fabs(y1 - y) > fabs(delta_y * 2))
 	{
-		// printf("point X=%f, Y=%f, Z= %d\n", x, y, z);
+		printf("counter: %i\n, point X=%f, Y=%f, Z= %d\n", counter, x, y, z);
 		mlx_pixel_put(mdata->mlx_ptr, mdata->win_ptr, x, y, mdata->color);
 		x += delta_x;
 		y += delta_y;
+		counter++;
+		if (counter > 6)
+			break;
 	}
 	return (0);
 }

@@ -5,16 +5,16 @@ void	*clean_matrix(t_map **mdata)
 	size_t	i;
 	size_t	n;
 
-	printf("line_num in main:%i\n", (*mdata)->line_num);
+//	printf("line_num in main:%i\n", (*mdata)->line_num);
 	printf("clean matrix\n");
 	n = (*mdata)->line_num;
 	i = 0;
 	if (n)
 	{
-		printf("will clean\n");
+//		printf("will clean\n");
 		while (i < n)
 		{
-			printf("cleaning\n");
+//			printf("cleaning\n");
 			free((*mdata)->matrix[i]);
 			i++;
 		}
@@ -27,7 +27,7 @@ int	exit_fdf(t_map **mdata, int error)
 {
 	if ((*mdata)->matrix && (*mdata)->line_len > 0 && (*mdata)->line_num > 0)
 	{
-		printf("matrix\n");
+//		printf("matrix\n");
 		clean_matrix(mdata);
 	}
 	// printf("%p\n", *mdata);

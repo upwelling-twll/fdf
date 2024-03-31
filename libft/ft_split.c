@@ -6,12 +6,12 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:45:01 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/03/08 18:11:07 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/03/31 16:01:58 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+//#include <stdio.h>
 static size_t	ft_sepamount(const char *s, char c)
 {
 	size_t	a;
@@ -110,7 +110,7 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	printf("sep_amount:%zu\n", ft_sepamount(s, c));
+//	printf("sep_amount:%zu\n", ft_sepamount(s, c));
 	str = malloc(sizeof(char *) * (ft_sepamount(s, c) + 1));
 	if (str == NULL)
 		return (NULL);

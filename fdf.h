@@ -28,45 +28,62 @@ typedef	struct s_map
 	int		zoom;
 	int		color;
 
-	int		shift_x;
-	int		shift_y;
+	float		shift_x;
+	float		shift_y;
 
 	float		rad;
 
-	int		win_height;
-	int		win_wight;
+	float		win_height;
+	float		win_wight;
 
 	int		iso_grow;
 }				t_map;
 
 //frameware.c
-int	make_frameware(float x, float x1, float y, float y1, t_map *mdata);
+float	get_max(float a, float b);
+int		make_frameware(float x, float x1, float y, float y1, t_map *mdata);
 void	draw_map(t_map *mdata);
 
 //fdf_split.c
 char	**fdf_split(char const *s, char c);
 
-//save_map.c
-int		*split_digits(char *str, size_t len);
-void	save_map(int fd, t_map **mdata);
-
 //parsing.c
-int		matrix_nums_only(char *str);
+int		verify_num(int num);
 int		get_line_len(char *file);
 int		parse_map(char *file, t_map **mdata);
-int		check_fd(int fd);
 char	*get_file(char *argv);
 
 //exit.c
-void	*clean_saved_map(t_map **mdata);
 int		exit_fdf(t_map **mdata, int error);
 
-//dbg_fdf.c
+//zoom_shift_iso_colour.c
+void	add_isometry(float *x, float *y, int z, t_map *mdata);
+void	get_color(t_map **mdata, int z, int z1);
+void	zoom(float *x, float *x1, float *y, float *y1, t_map *mdata);
+void	shift_and_centering(float *x, float *x1, float *y, float *y1, t_map *mdata);
+
+//build_matrix.c
+int		copy_to_matrix(int *mtx_line, char *str, int len);
+int		fill_matrix(t_map **mdata, char *file);
+
+//cleaning_split.c
+void	clean_split(char **arr, size_t n);
+void	clean_all_split(char **arr, size_t n);
+
+//get_filename.c
+char	*file_exists(char *file);
+char	*get_file(char *argv);
+
+//catch_events.c
+void	set_parameters(t_map **mdata);
+int		identify_key(int key);
+int		execute_key(int key, t_map **mdata);
+void	new_window(t_map *mdata);
+int		catch_key(int key, t_map *mdata);
+
+// ****** dbg_fdf.c ******
 void	print_line(int *line, size_t len);
 void	print_map_matrix(t_map *mdata);
 void	print_pars_result(t_map *map);
-
-//main.c
-int	deal_key(int key, t_map *mdata);
 
 #endif

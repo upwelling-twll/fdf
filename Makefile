@@ -6,11 +6,13 @@ CC = cc
 
 RM = rm -f
 
-SRC = main.c parsing.c frameware.c fdf_split.c save_map.c exit.c dbg_fdf.c
+SRC = main.c parsing.c frameware.c fdf_split.c zoom_shift_iso_colour.c \
+	build_matrix.c cleaning_split.c catch_events.c get_filename.c \
+	exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
-FLAGS = #-Wall -Wextra -Werror -O3
+FLAGS = -Wall -Wextra -Werror -O3
 
 LIBS :=
 ifeq ($(UNAME_S),Darwin) # MacOS
@@ -28,7 +30,7 @@ endif
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(OBJ) $(LIBS) -o $(NAME) libft/*.o #-g3 -fsanitize=address
+	$(CC) $(OBJ) -g3 -fsanitize=address $(LIBS) -o $(NAME) libft/*.o
 
 libft:
 	@ make -C libft/ >/dev/null

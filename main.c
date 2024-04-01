@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
+/*   Updated: 2024/04/01 23:51:06 by nmagdano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 void	my_mlx_pixel_put(t_map *mdata, int x, int y, int color)
@@ -33,7 +45,6 @@ int	main(int argc, char *argv[])
 	file = get_file(*argv);
 	if (file == NULL)
 		return (0);
-	printf("map\n");
 	if (parse_map(file, &mdata))
 		return (exit_fdf(&mdata, 1));
 	set_parameters(&mdata);

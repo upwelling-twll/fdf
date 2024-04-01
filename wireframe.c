@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wireframe.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
+/*   Updated: 2024/04/01 23:31:16 by nmagdano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 float	get_max(float a, float b)
@@ -7,7 +19,7 @@ float	get_max(float a, float b)
 	return (b);
 }
 
-int	make_frameware(t_ord ord, t_map *mdata)
+int	make_frameware(t_map *m)
 {
 	float	delta_x;
 	float	delta_y;
@@ -15,22 +27,22 @@ int	make_frameware(t_ord ord, t_map *mdata)
 	int		z;
 	int		z1;
 
-	z = mdata->matrix[(int)y][(int)x];
-	z1 = mdata->matrix[(int)y1][(int)x1];
-	zoom(&x, &x1, &y, &y1, mdata);
-	get_color(&mdata, z, z1);
-	add_isometry(&x, &y, z, mdata);
-	add_isometry(&x1, &y1, z1, mdata);
-	shift_and_centering(&x, &x1, &y, &y1, mdata);
-	max = get_max(fabs(x1 - x), fabs(y1 - y));
-	delta_x = (x1 - x) / max;
-	delta_y = (y1 - y) / max;
-	while ((int)(x - x1) || (int)(y - y1))
+	z = m->matrix[(int)m->y][(int)m->x];
+	z1 = m->matrix[(int)m->y1][(int)m->x1];
+	zoom(m);
+	get_color(&m, z, z1);
+	add_isometry(&m->x, &m->y, z, m);
+	add_isometry(&m->x1, &m->y1, z1, m);
+	shift_and_centering(m);
+	max = get_max(fabs(m->x1 - m->x), fabs(m->y1 - m->y));
+	delta_x = (m->x1 - m->x) / max;
+	delta_y = (m->y1 - m->y) / max;
+	while ((int)(m->x - m->x1) || (int)(m->y - m->y1))
 	{
-		my_mlx_pixel_put(mdata, x, y, mdata->color);
-		x += delta_x;
-		y += delta_y;
-		if (x > mdata->win_wight || y > mdata->win_height || y < 0 || x < 0)
+		my_mlx_pixel_put(m, m->x, m->y, m->color);
+		m->x += delta_x;
+		m->y += delta_y;
+		if (m->x > m->win_wight || m->y > m->win_height || m->y < 0 || m->x < 0)
 			break ;
 	}
 	return (0);
@@ -53,34 +65,40 @@ void	make_img(t_map *mdata)
 	}
 }
 
-void	ords_y_plus(t_ord ord)
+t_map	*ords_plus(t_map *mdata, int x, int y, int flag)
 {
-	
+	mdata->y = y;
+	mdata->x = x;
+	mdata->y1 = y;
+	mdata->x1 = x;
+	if (flag == 1)
+		mdata->y += 1;
+	if (flag == 2)
+		mdata->x += 1;
+	return (mdata);
 }
-
 
 void	draw_map(t_map *mdata)
 {
-	t_ord	ord;
+	int		y;
+	int		x;
 
-	ord.y = 0;
+	y = 0;
 	make_img(mdata);
-	while (mdata->matrix[ord.y])
+	while (mdata->matrix[y])
 	{
-		ord.x = 0;
+		x = 0;
 		while (1)
 		{
-			if (mdata->matrix[ord.y + 1])
-				make_frameware(ords_y_plus(ord), mdata);
-				//make_frameware(x, x, y + 1, y, mdata);
-			if ((ord.x < (int)mdata->line_len - 1))
-				make_frameware(ord, mdata);
-				//make_frameware(x, x + 1, y, y, mdata);
-			if (ord.x == (int)mdata->line_len - 1)
+			if (mdata->matrix[y + 1])
+				make_frameware(ords_plus(mdata, x, y, 1));
+			if ((x < (int)mdata->line_len - 1))
+				make_frameware(ords_plus(mdata, x, y, 2));
+			if (x == (int)mdata->line_len - 1)
 				break ;
-			ord.x++;
+			x++;
 		}
-		ord.y++;
+		y++;
 	}
 	mlx_put_image_to_window(mdata->mlx_ptr, mdata->win_ptr,
 		mdata->img_d.img, 0, 0);

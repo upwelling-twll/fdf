@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
+/*   Updated: 2024/04/01 23:51:15 by nmagdano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int	get_line_num(char *file)
@@ -93,7 +105,6 @@ int	parse_map(char *file, t_map **mdata)
 	if (i > 0)
 		(*mdata)->line_num = i;
 	i = get_line_len(file);
-	printf("i=%i\n", i);
 	if (i > 0)
 		(*mdata)->line_len = i;
 	else

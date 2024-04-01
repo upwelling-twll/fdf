@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   catch_events.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
+/*   Updated: 2024/04/02 01:06:50 by nmagdano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 #ifndef SENS
 # define SENS 50
@@ -24,7 +36,9 @@ void	set_parameters(t_map **mdata)
 	(*mdata)->win_wight = WIN_WI;
 	(*mdata)->shift_y = 0;
 	(*mdata)->shift_x = 0;
-	(*mdata)->zoom = 2;
+	(*mdata)->zoom = adapt((min((*mdata)->win_height, (*mdata)->win_wight)
+				/ max((*mdata)->line_len, (*mdata)->line_num) / 4), *mdata);
+	printf("zoom=%i\n", (*mdata)->zoom);
 	(*mdata)->rad = 0.785398;
 	(*mdata)->iso_grow = 1;
 }

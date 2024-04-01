@@ -8,7 +8,7 @@ RM = rm -f
 
 SRC = main.c parsing.c wireframe.c fdf_split.c zoom_shift_iso_colour.c \
 	build_matrix.c cleaning_split.c catch_events.c get_filename.c \
-	exit.c dbg_fdf.c
+	utils.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,23 +25,24 @@ else ifeq ($(UNAME_S),Linux) # Linux
 endif
 
 %.o: %.c
-	$(CC) $(FLAGS) -Imlx -c $< -o $@ >/dev/null
+	 $(CC) $(FLAGS) -Imlx -c $< -o $@ 
+#>/dev/null
 
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(OBJ)  $(LIBS) -o $(NAME) libft/*.o
+	@ $(CC) $(OBJ) $(LIBS) -o $(NAME) libft/*.o
 #-fsanitize=address -g3
 libft:
 	@ make -C libft/ >/dev/null
 
 clean: 
-		@ $(RM) $(OBJ)
-		@ make -C libft/ clean >/dev/null
+	@ $(RM) $(OBJ)
+	@ make -C libft/ clean >/dev/null
 
 fclean: clean
-		@ $(RM) $(NAME)
-		@ make -C libft/ fclean >/dev/null
+	@ $(RM) $(NAME)
+	@ make -C libft/ fclean >/dev/null
 
 re: fclean all
 

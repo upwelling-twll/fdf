@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/01 23:31:16 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 01:54:38 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	make_frameware(t_map *m)
 	add_isometry(&m->x, &m->y, z, m);
 	add_isometry(&m->x1, &m->y1, z1, m);
 	shift_and_centering(m);
-	max = get_max(fabs(m->x1 - m->x), fabs(m->y1 - m->y));
+	max = get_max(ft_fabs(m->x1 - m->x), ft_fabs(m->y1 - m->y));
 	delta_x = (m->x1 - m->x) / max;
 	delta_y = (m->y1 - m->y) / max;
 	while ((int)(m->x - m->x1) || (int)(m->y - m->y1))

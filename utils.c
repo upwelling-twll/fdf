@@ -6,11 +6,18 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:06:56 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 01:53:54 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+float	ft_fabs(float a)
+{
+	if (a < 0)
+		a *= -1;
+	return (a);
+}
 
 int	min(int a, int b)
 {
@@ -24,6 +31,23 @@ int	max(int a, int b)
 	if (b < a)
 		return (b);
 	return (a);
+}
+
+int	free_ret(int fd, char *str, int ret)
+{
+	if (ret == -2)
+	{
+		free(str);
+		close(fd);
+		return (-1);
+	}
+	if (ret == -1)
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	return (ret);
 }
 
 int	adapt(int zoom, t_map *mdata)

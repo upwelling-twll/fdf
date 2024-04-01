@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/01 23:51:15 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 01:50:50 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,20 +64,18 @@ int	get_line_len_read_and_split(int fd, int *len)
 		free(str);
 		i = 1;
 		str = get_next_line(fd);
-		while (str != NULL)
+		while (str != NULL && width_split(str, ' ') >= *len)
 		{
 			free(str);
 			i++;
 			str = get_next_line(fd);
 		}
+		if (str)
+			return (free_ret(fd, str, -2));
 	}
 	else
-	{
-		close(fd);
-		return (-1);
-	}
-	close(fd);
-	return (*len);
+		return (free_ret(fd, NULL, -1));
+	return (free_ret(fd, NULL, *len));
 }
 
 int	get_line_len(char *file)

@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:07:22 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 01:54:09 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ int		close_window(t_map *mdata);
 void	my_mlx_pixel_put(t_map *mdata, int x, int y, int color);
 
 //utils.c
+float	ft_fabs(float a);
 int		max(int a, int b);
 int		min(int a, int b);
 int		adapt(int zoom, t_map *mdata);
+int		free_ret(int fd, char *str, int ret);
 
 //wireframe.c
 float	get_max(float a, float b);

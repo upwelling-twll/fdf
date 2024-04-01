@@ -7,7 +7,7 @@ float	get_max(float a, float b)
 	return (b);
 }
 
-int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
+int	make_frameware(t_ord ord, t_map *mdata)
 {
 	float	delta_x;
 	float	delta_y;
@@ -16,7 +16,7 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 	int		z1;
 
 	z = mdata->matrix[(int)y][(int)x];
-	z1 = mdata->matrix[(int)y1][(int)x1] ;
+	z1 = mdata->matrix[(int)y1][(int)x1];
 	zoom(&x, &x1, &y, &y1, mdata);
 	get_color(&mdata, z, z1);
 	add_isometry(&x, &y, z, mdata);
@@ -31,7 +31,7 @@ int	make_frameware(float x, float x1, float y, float y1, t_map *mdata)
 		x += delta_x;
 		y += delta_y;
 		if (x > mdata->win_wight || y > mdata->win_height || y < 0 || x < 0)
-			break;
+			break ;
 	}
 	return (0);
 }
@@ -40,36 +40,48 @@ void	make_img(t_map *mdata)
 {
 	if (mdata->img_d.img == NULL)
 	{
-		mdata->img_d.img = mlx_new_image(mdata->mlx_ptr, mdata->win_wight, mdata->win_height);
-		mdata->img_d.addr = mlx_get_data_addr(mdata->img_d.img,  &mdata->img_d.bits_per_pix, &mdata->img_d.line_length, &mdata->img_d.endian);
+		mdata->img_d.img = mlx_new_image(mdata->mlx_ptr, mdata->win_wight,
+				mdata->win_height);
+		mdata->img_d.addr = mlx_get_data_addr(mdata->img_d.img,
+				&mdata->img_d.bits_per_pix, &mdata->img_d.line_length,
+				&mdata->img_d.endian);
 	}
 	else
 	{
-		ft_bzero(mdata->img_d.addr, mdata->win_wight * mdata->win_height * (mdata->img_d.bits_per_pix / 8));
+		ft_bzero(mdata->img_d.addr, mdata->win_wight * mdata->win_height
+			* (mdata->img_d.bits_per_pix / 8));
 	}
 }
 
+void	ords_y_plus(t_ord ord)
+{
+	
+}
+
+
 void	draw_map(t_map *mdata)
 {
-	int		x;
-	int		y;
+	t_ord	ord;
 
-	y = 0;
+	ord.y = 0;
 	make_img(mdata);
-	while (mdata->matrix[y])
+	while (mdata->matrix[ord.y])
 	{
-		x = 0;
+		ord.x = 0;
 		while (1)
 		{
-			if (mdata->matrix[y + 1])
-				make_frameware(x, x, y + 1, y, mdata);
-			if ((x < (int)mdata->line_len - 1))
-				make_frameware(x, x + 1, y, y, mdata);
-			if (x == (int)mdata->line_len - 1)
-				break;
-			x++;
+			if (mdata->matrix[ord.y + 1])
+				make_frameware(ords_y_plus(ord), mdata);
+				//make_frameware(x, x, y + 1, y, mdata);
+			if ((ord.x < (int)mdata->line_len - 1))
+				make_frameware(ord, mdata);
+				//make_frameware(x, x + 1, y, y, mdata);
+			if (ord.x == (int)mdata->line_len - 1)
+				break ;
+			ord.x++;
 		}
-		y++;
+		ord.y++;
 	}
-	mlx_put_image_to_window(mdata->mlx_ptr, mdata->win_ptr, mdata->img_d.img, 0, 0);
+	mlx_put_image_to_window(mdata->mlx_ptr, mdata->win_ptr,
+		mdata->img_d.img, 0, 0);
 }

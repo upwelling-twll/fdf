@@ -2,8 +2,9 @@
 
 void	print_line(int *line, size_t len)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	while (i < len)
 	{
 		printf("%3d", line[i]);
@@ -18,7 +19,6 @@ void	print_map_matrix(t_map *mdata)
 
 	i = 0;
 	printf("\n***		matrix		***\n");
-	//printf("%i", mdata->matrix[9][9]);
 	printf("mdata->line_num:%i\n", mdata->line_num);
 	printf("mdata->line_len:%lu\n", mdata->line_len);
 	while ((mdata)->matrix[i])

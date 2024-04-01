@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/01 21:12:29 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/01 21:48:20 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 	while (cplen)
 	{
 		num = ft_atoi(nums_str[i]);
-		if (verify_num(num))
-			return (-1);
 		mtx_line[i] = num;
 		i++;
 		cplen--;
@@ -64,7 +62,6 @@ int	open_and_copy(t_map **mdata, char *file)
 int	fill_matrix(t_map **mdata, char *file)
 {
 	int		i;
-	char	*str;
 
 	i = 0;
 	(*mdata)->matrix = (int **)malloc(sizeof(int *) * ((*mdata)->line_num) + 1);

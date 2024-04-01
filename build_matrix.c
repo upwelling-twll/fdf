@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_matrix.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
+/*   Updated: 2024/04/01 21:12:29 by nmagdano         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int	copy_to_matrix(int *mtx_line, char *str, int len)
@@ -14,7 +26,7 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 	{
 		num = ft_atoi(nums_str[i]);
 		if (verify_num(num))
-			return(-1);
+			return (-1);
 		mtx_line[i] = num;
 		i++;
 		cplen--;
@@ -24,22 +36,16 @@ int	copy_to_matrix(int *mtx_line, char *str, int len)
 	return (0);
 }
 
-int	fill_matrix(t_map **mdata, char *file)
+int	open_and_copy(t_map **mdata, char *file)
 {
 	int		i;
 	int		fd;
 	char	*str;
 
-	 i = 0;
-	(*mdata)->matrix = (int**)malloc(sizeof(int*) * ((*mdata)->line_num) + 1);
-	while (i <= (*mdata)->line_num)
-	{
-		(*mdata)->matrix[i] = (int*)malloc(sizeof(int) * ((*mdata)->line_len));
-		i++;
-	}
 	i = 0;
 	fd = open(file, O_RDONLY);
-	while ((str = get_next_line(fd)) != NULL)
+	str = get_next_line(fd);
+	while (str != NULL)
 	{
 		if (copy_to_matrix((*mdata)->matrix[i], str, (*mdata)->line_len))
 		{
@@ -48,8 +54,26 @@ int	fill_matrix(t_map **mdata, char *file)
 		}
 		i++;
 		free(str);
+		str = get_next_line(fd);
 	}
 	(*mdata)->matrix[i] = NULL;
 	close(fd);
+	return (0);
+}
+
+int	fill_matrix(t_map **mdata, char *file)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	(*mdata)->matrix = (int **)malloc(sizeof(int *) * ((*mdata)->line_num) + 1);
+	while (i <= (*mdata)->line_num)
+	{
+		(*mdata)->matrix[i] = (int *)malloc(sizeof(int) * ((*mdata)->line_len));
+		i++;
+	}
+	if (open_and_copy(mdata, file))
+		return (1);
 	return (0);
 }

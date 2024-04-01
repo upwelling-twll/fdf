@@ -37,9 +37,13 @@ typedef	struct s_map
 	float		win_wight;
 
 	int		iso_grow;
-}				t_map;
 
-//frameware.c
+	t_data img_d;
+}				t_map;
+int		close_window(t_map *mdata);
+void	my_mlx_pixel_put(t_map *mdata, int x, int y, int color);
+
+//wireframe.c
 float	get_max(float a, float b);
 int		make_frameware(float x, float x1, float y, float y1, t_map *mdata);
 void	draw_map(t_map *mdata);

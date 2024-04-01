@@ -6,7 +6,7 @@ CC = cc
 
 RM = rm -f
 
-SRC = main.c parsing.c frameware.c fdf_split.c zoom_shift_iso_colour.c \
+SRC = main.c parsing.c wireframe.c fdf_split.c zoom_shift_iso_colour.c \
 	build_matrix.c cleaning_split.c catch_events.c get_filename.c \
 	exit.c dbg_fdf.c
 
@@ -30,8 +30,8 @@ endif
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	$(CC) $(OBJ) -g3 -fsanitize=address $(LIBS) -o $(NAME) libft/*.o
-
+	$(CC) $(OBJ)  $(LIBS) -o $(NAME) libft/*.o
+#-fsanitize=address -g3
 libft:
 	@ make -C libft/ >/dev/null
 

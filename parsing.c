@@ -24,14 +24,14 @@ int	width_split(char *str, char c)
 	int		i;
 
 	i = 0;
-	printf("str=%s$\n", str);
+	//printf("str=%s$\n", str);
 	arr = fdf_split(str, c);
 	if (arr && arr[0])
 	{
 		while (arr[i])
 			i++;
 		//printf("arr[i-1]=%c$,arr[i][0]=%c$\n",arr[i-1][0], arr[i][0]);
-		printf("arr[i-1]=%s$,arr[i]=%s$\n",arr[i-1], arr[i]);
+		//printf("arr[i-1]=%s$,arr[i]=%s$\n",arr[i-1], arr[i]);
 		clean_split(arr, i);
 	}
 	if (arr)
@@ -62,7 +62,7 @@ int	get_line_len(char *file)
 			if (nlen != len)
 			{
 				free(str);
-				printf("str_len=%i (i=%i), norm_len=%i\n", nlen, i, len);
+				//printf("str_len=%i (i=%i), norm_len=%i\n", nlen, i, len);
 				return (-1);
 			}
 			free(str);
@@ -96,7 +96,7 @@ int	parse_map(char *file, t_map **mdata)
 	(*mdata)->line_num = 0;
 	if ((i = get_line_num(file)) > 0)
 		(*mdata)->line_num = i;
-	printf("got lnum = %i\n", (*mdata)->line_num);
+	//printf("got lnum = %i\n", (*mdata)->line_num);
 	if ((i = get_line_len(file)) > 0)
 		(*mdata)->line_len = i;
 	else

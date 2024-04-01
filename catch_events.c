@@ -24,7 +24,7 @@ void	set_parameters(t_map **mdata)
 	(*mdata)->win_wight = WIN_WI;
 	(*mdata)->shift_y = 0;
 	(*mdata)->shift_x = 0;
-	(*mdata)->zoom = 20;
+	(*mdata)->zoom = 2;
 	(*mdata)->rad = 0.785398;
 	(*mdata)->iso_grow = 1;
 }
@@ -91,6 +91,7 @@ void	new_window(t_map *mdata)
 	mdata->mlx_ptr = mlx_init();
 	mdata->win_ptr = mlx_new_window(mdata->mlx_ptr, mdata->win_wight, mdata->win_height, "FDF");
 	draw_map(mdata);
+	mlx_hook(mdata->win_ptr, 17, 1L << 17, close_window, mdata);
 	mlx_key_hook(mdata->win_ptr, catch_key, mdata); // for bonus
 	mlx_loop(mdata->mlx_ptr); 
 }
@@ -98,21 +99,24 @@ void	new_window(t_map *mdata)
 int	catch_key(int key, t_map *mdata)
 {
 	ft_printf("%d\n", key);
-
-	if (identify_key(key))
-		execute_key(key, &mdata);
-	if (key == 65307 || key == 53) //escape
+	// if ((identify_key(key)))
+	// {
+		//mlx_clear_window(mdata->mlx_ptr, mdata->win_ptr);
+		//execute_key(key, &mdata);
+		//draw_map(mdata);
+	// }
+	if (key == 65307 || key == 53 || key == 17) //escape (linux || mac), x
 	{
 		mlx_destroy_window(mdata->mlx_ptr, mdata->win_ptr);
 		exit_fdf(&mdata, 0);
 		exit (0);
-	}
-	if (key == 3) //key "f" - fullscreen
-	{
-		new_window(mdata);
 		return (0);
 	}
-	mlx_clear_window(mdata->mlx_ptr, mdata->win_ptr);
-	draw_map(mdata);
+	// if (key == 3) //key "f" - fullscreen
+	// {
+	// 	//mlx_destroy_image(mdata->mlx_ptr, mdata->img_d.img);
+	// 	new_window(mdata);
+	// 	return (0);
+	// }
 	return (0);
 }

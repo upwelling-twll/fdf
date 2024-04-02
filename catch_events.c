@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 19:53:49 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:57:38 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	set_parameters(t_map **mdata)
 	if ((*mdata)->zoom <= 0)
 	{
 		(*mdata)->zoom = (min((*mdata)->win_height, (*mdata)->win_wight)
-	 		/ max((*mdata)->line_len, (*mdata)->line_num) / 2);
+				/ max((*mdata)->line_len, (*mdata)->line_num) / 2);
 	}
 	(*mdata)->rad = 0.785398;
 	(*mdata)->iso_grow = 1;

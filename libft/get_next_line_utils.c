@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 21:49:49 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/03/08 13:32:41 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 22:59:18 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,8 @@ char	*fill_line(t_bits *bits)
 	char		*line;
 	t_bits		*cpbits;
 
-	nodes_toprint = ft_lsbsize(bits);
 	all_len = 0;
+	nodes_toprint = ft_lsbsize(bits);
 	cpbits = bits;
 	while (cpbits != NULL)
 	{

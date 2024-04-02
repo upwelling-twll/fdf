@@ -14,6 +14,8 @@ OBJ = $(SRC:.c=.o)
 
 FLAGS = -Wall -Wextra -Werror -O3
 
+LIBFT:= libft/libft.a
+
 LIBS :=
 ifeq ($(UNAME_S),Darwin) # MacOS
     FLAGS += -Imlx
@@ -30,10 +32,10 @@ endif
 
 all: $(NAME)
 
-$(NAME): libft $(OBJ)
-	@ $(CC) $(OBJ) $(LIBS) -o $(NAME) libft/*.o
+$(NAME): $(LIBFT) $(OBJ)
+	@ $(CC) $(OBJ) $(LIBS) -o $(NAME) $(LIBFT)
 #-fsanitize=address -g3
-libft:
+$(LIBFT):
 	@ make -C libft/ >/dev/null
 
 clean: 

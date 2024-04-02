@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:41:00 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:21:34 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char *argv[])
 	argv++;
 	file = get_file(*argv);
 	if (file == NULL)
-		return (0);
+		return (exit_fdf(NULL, 10));
 	if (parse_map(file, &mdata))
 		return (exit_fdf(&mdata, 1));
 	set_parameters(&mdata);

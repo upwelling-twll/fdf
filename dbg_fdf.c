@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/01 23:30:34 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:15:23 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,35 @@ void	print_line(int *line, size_t len)
 	{
 		printf("%3d", line[i]);
 		printf(" ");
+		i++;
+	}
+}
+
+void	print_color_line(unsigned int *line, size_t len)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < len)
+	{
+		printf("%3u", line[i]);
+		printf(" ");
+		i++;
+	}
+}
+
+void	print_color_matrix(t_map *mdata)
+{
+	size_t	i;
+
+	i = 0;
+	printf("\n***		color matrix		***\n");
+	printf("mdata->line_num:%i\n", mdata->line_num);
+	printf("mdata->line_len:%lu\n", mdata->line_len);
+	while ((mdata)->matrix[i])
+	{
+		print_color_line((mdata)->color_m[i], (mdata)->line_len);
+		printf("\n");
 		i++;
 	}
 }

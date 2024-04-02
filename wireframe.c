@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:54:38 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:21:45 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	make_frameware(t_map *m)
 
 	z = m->matrix[(int)m->y][(int)m->x];
 	z1 = m->matrix[(int)m->y1][(int)m->x1];
-	zoom(m);
 	get_color(&m, z, z1);
+	zoom(m);
 	add_isometry(&m->x, &m->y, z, m);
 	add_isometry(&m->x1, &m->y1, z1, m);
 	shift_and_centering(m);

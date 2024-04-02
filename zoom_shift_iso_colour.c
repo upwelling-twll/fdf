@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/01 23:53:00 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:09:19 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ void	add_isometry(float *x, float *y, int z, t_map *mdata)
 	*y = (*x + *y) * sin(mdata->rad) - (z * mdata->iso_grow);
 }
 
-void	get_color(t_map **mdata, int z, int z1)
+void	get_color(t_map **m, int z, int z1)
 {
-	if (z > 0 || z1 > 0)
-		(*mdata)->color = 0x008800;
+	if ((*m)->color_m[(int)(*m)->y][(int)(*m)->x] != 0)
+		(*m)->color = (*m)->color_m[(int)(*m)->y][(int)(*m)->x];
+	else if ((*m)->color_m[(int)(*m)->y1][(int)(*m)->x1] != 0)
+		(*m)->color = (*m)->color_m[(int)(*m)->y1][(int)(*m)->x1];
+	else if (z > 0 || z1 > 0)
+		(*m)->color = 0x008800;
 	else
-		(*mdata)->color = 0xffffff;
+		(*m)->color = 0xffffff;
 }
 
 void	zoom(t_map *mdata)

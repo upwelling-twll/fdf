@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:53:54 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 16:23:29 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,10 @@ int	adapt(int zoom, t_map *mdata)
 {
 	float	diff;
 
-	diff = mdata->win_wight / mdata->line_len;
+	if ((int)mdata->line_len < mdata->line_num)
+		return (zoom / 4);
+	diff = min(mdata->win_wight / mdata->line_len,
+			mdata->win_height / mdata->line_num);
 	if (diff == 10 && zoom <= 4)
 		return (zoom);
 	else if (diff <= 4 && zoom <= 1)

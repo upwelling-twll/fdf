@@ -8,7 +8,7 @@ RM = rm -f
 
 SRC = main.c parsing.c wireframe.c fdf_split.c zoom_shift_iso_colour.c \
 	build_matrix.c cleaning_split.c catch_events.c get_filename.c \
-	utils.c exit.c dbg_fdf.c
+	colors.c utils.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -31,7 +31,7 @@ endif
 all: $(NAME)
 
 $(NAME): libft $(OBJ)
-	@ $(CC) -fsanitize=address -g3 $(OBJ) $(LIBS) -o $(NAME) libft/*.o
+	@ $(CC) $(OBJ) $(LIBS) -o $(NAME) libft/*.o
 #-fsanitize=address -g3
 libft:
 	@ make -C libft/ >/dev/null

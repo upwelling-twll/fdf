@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:50:50 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:01:03 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ int	width_split(char *str, char c)
 	if (arr && arr[0])
 	{
 		while (arr[i])
+		{
 			i++;
+		}
 		clean_split(arr, i);
 	}
 	if (arr)

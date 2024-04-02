@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 16:15:23 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:39:11 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	print_map_matrix(t_map *mdata)
 		printf("\n");
 		i++;
 	}
+	printf("end mdata->line_num:%i\n", mdata->line_num);
+	printf("end printing mdata->line_len:%lu\n", mdata->line_len);
 }
 
 void	print_pars_result(t_map *map)

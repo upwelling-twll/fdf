@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 17:00:37 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:39:40 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ unsigned int	check_color_matrix(char *nmbr)
 
 	i = 0;
 	arr = ft_split(nmbr, ',');
+	if (!arr)
+		return (-1);
 	while (arr[i])
 		i++;
 	if (i != 2 || correct_hex(arr[1]))

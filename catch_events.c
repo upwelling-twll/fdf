@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 01:41:28 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/02 19:53:49 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 # define RAD 0.2
 #endif
 #ifndef ZOOM
-# define ZOOM 10
+# define ZOOM 1
 #endif
 #ifndef WIN_HI
-# define WIN_HI 1000
+# define WIN_HI 1400
 #endif
 #ifndef WIN_WI
-# define WIN_WI 2000
+# define WIN_WI 2560
 #endif
 #ifndef ISO
 # define ISO 1
@@ -38,6 +38,11 @@ void	set_parameters(t_map **mdata)
 	(*mdata)->shift_x = 0;
 	(*mdata)->zoom = adapt((min((*mdata)->win_height, (*mdata)->win_wight)
 				/ max((*mdata)->line_len, (*mdata)->line_num) / 4), *mdata);
+	if ((*mdata)->zoom <= 0)
+	{
+		(*mdata)->zoom = (min((*mdata)->win_height, (*mdata)->win_wight)
+	 		/ max((*mdata)->line_len, (*mdata)->line_num) / 2);
+	}
 	(*mdata)->rad = 0.785398;
 	(*mdata)->iso_grow = 1;
 }

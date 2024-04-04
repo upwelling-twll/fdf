@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/04 15:26:25 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:41:05 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_map
 	int					iso_grow;
 
 	int					two_d;
+	
+	int					perspective;
+	int					camera_depth;
+	int					perspective_factor;
+	int					win_center_w;
+	int					win_center_h;
+	int					yaw;
+	int					pitch;
 
 	t_data				img_d;
 
@@ -68,6 +76,12 @@ typedef struct s_map
 	float				x1;
 	float				y1;
 }				t_map;
+
+//perspective.c
+void			rotate_yaw(t_map **mdata, int *z);
+void			rotate_pitch(t_map **mdata, int *z);
+void			project_point(float *x, float *y, int *z, t_map *mdata);
+void			build_perspective(t_map **mdata);
 
 //colours.c
 unsigned int	ft_gethex(char *str);

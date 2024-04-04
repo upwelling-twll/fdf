@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/04 15:26:45 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 21:17:48 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,14 @@ void	add_isometry(float *x, float *y, int z, t_map *mdata)
 		return ;
 	*x = (*x - *y) * cos(mdata->rad);
 	*y = (*x + *y) * sin(mdata->rad) - (z * mdata->iso_grow);
+	if (mdata->perspective == 1)
+	{
+		project_point(x, y, &z, mdata);
+		printf("\nto proj point: x = %f, y =%f, z=%i\n", *x, *y, z);
+		rotate_yaw(&mdata, &z);
+		rotate_pitch(&mdata, &z);
+		printf("after proj point: x = %f, y =%f, z=%i\n", *x, *y, z);
+	}
 }
 
 void	get_color(t_map **m, int z, int z1)

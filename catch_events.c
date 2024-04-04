@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/04 15:26:58 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 20:08:16 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define WIN_HI 1100
 #endif
 #ifndef WIN_WI
-# define WIN_WI 1500
+# define WIN_WI 2500
 #endif
 #ifndef ISO
 # define ISO 1
@@ -46,6 +46,7 @@ void	set_parameters(t_map **mdata)
 	(*mdata)->rad = 0.785398;
 	(*mdata)->iso_grow = 1;
 	(*mdata)->two_d = 0;
+	(*mdata)->perspective = 0;
 }
 
 int	identify_key(int key)

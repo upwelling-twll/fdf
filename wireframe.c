@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 19:54:46 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 18:59:52 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	draw_map(t_map *mdata)
 		}
 		y++;
 	}
+	printf("all coards are ok\n");
 	mlx_put_image_to_window(mdata->mlx_ptr, mdata->win_ptr,
 		mdata->img_d.img, 0, 0);
 }

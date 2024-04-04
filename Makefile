@@ -8,7 +8,7 @@ RM = rm -f
 
 SRC = main.c parsing.c wireframe.c fdf_split.c zoom_shift_iso_colour.c \
 	build_matrix.c cleaning_split.c catch_events.c get_filename.c \
-	catch_events2.c colors.c utils.c exit.c dbg_fdf.c
+	catch_events2.c perspective.c colors.c utils.c exit.c dbg_fdf.c
 
 OBJ = $(SRC:.c=.o)
 

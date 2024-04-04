@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   catch_events2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 13:40:37 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/04 14:32:09 by nmagdano         ###   ########.fr       */
+/*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
+/*   Updated: 2024/04/04 15:26:35 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-void	ft_bzero(void *s, size_t n)
+int	identify_key2(int key)
 {
-	ft_memset(s, 0, n);
+	if (key == 19 || key == 20)
+		return (1);
+	return (0);
+}
+
+int	execute_key2(int key, t_map **mdata)
+{
+	if (key == 19)
+		(*mdata)->two_d = 1;
+	if (key == 20)
+		(*mdata)->two_d = 0;
+	return (0);
 }

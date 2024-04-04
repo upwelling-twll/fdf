@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 17:11:07 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 14:28:47 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	set_color(char *nums_str, unsigned int *cl_m, int i)
 {
 	unsigned int	hex;
 
+	hex = 0;
 	if ((ft_strchr(nums_str, ',')))
 	{
-		hex = check_color_matrix(nums_str);
-		if (hex < 0)
+		if (check_color_matrix(nums_str, &hex) == NULL)
 			return (1);
-		cl_m[i] = hex;
+		else
+			cl_m[i] = hex;
 	}
 	else
 		cl_m[i] = 0;
@@ -39,7 +40,12 @@ int	copy_to_matrix(int *mtx_line, char *str, int len, unsigned int *cl_m)
 	nums_str = ft_split(str, ' ');
 	while (cplen--)
 	{
-		set_color(nums_str[i], cl_m, i);
+		if (set_color(nums_str[i], cl_m, i))
+		{
+			clean_all_split(nums_str, len);
+			free(nums_str);
+			return (1);
+		}
 		mtx_line[i] = ft_atoi(nums_str[i]);
 		i++;
 	}
@@ -63,6 +69,7 @@ int	open_and_copy(t_map **mdata, char *file)
 				(*mdata)->color_m[i]))
 		{
 			close(fd);
+			free(str);
 			return (1);
 		}
 		i++;

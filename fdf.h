@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 17:15:07 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:26:25 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_map
 
 	int					iso_grow;
 
+	int					two_d;
+
 	t_data				img_d;
 
 	float				x;
@@ -69,8 +71,7 @@ typedef struct s_map
 
 //colours.c
 unsigned int	ft_gethex(char *str);
-unsigned int	check_color_matrix(char *nmbr);
-int				check_color(char *str, int *flag);
+unsigned int	*check_color_matrix(char *nmbr, unsigned int *hex);
 
 //main.c
 int				close_window(t_map *mdata);
@@ -117,6 +118,10 @@ void			clean_all_split(char **arr, size_t n);
 
 //get_filename.c
 char			*get_file(char *argv);
+
+//catch_events2.c
+int				execute_key2(int key, t_map **mdata);
+int				identify_key2(int key);
 
 //catch_events.c
 void			set_parameters(t_map **mdata);

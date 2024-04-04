@@ -6,12 +6,12 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 19:57:38 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:26:58 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#ifndef SENS
+#ifndef SENS 
 # define SENS 50
 #endif
 #ifndef RAD
@@ -21,10 +21,10 @@
 # define ZOOM 1
 #endif
 #ifndef WIN_HI
-# define WIN_HI 1400
+# define WIN_HI 1100
 #endif
 #ifndef WIN_WI
-# define WIN_WI 2560
+# define WIN_WI 1500
 #endif
 #ifndef ISO
 # define ISO 1
@@ -45,6 +45,7 @@ void	set_parameters(t_map **mdata)
 	}
 	(*mdata)->rad = 0.785398;
 	(*mdata)->iso_grow = 1;
+	(*mdata)->two_d = 0;
 }
 
 int	identify_key(int key)
@@ -67,7 +68,7 @@ int	identify_key(int key)
 		return (1);
 	if (key == 65451 || key == 69 || key == 34 || key == 31)
 		return (1);
-	if (key == 65453 || key == 78)
+	if (key == 65453 || key == 78 || key == 111 || key == 105)
 		return (1);
 	return (0);
 }
@@ -94,17 +95,17 @@ int	execute_key(int key, t_map **mdata)
 		(*mdata)->zoom += ZOOM;
 	if (key == 65453 || key == 78)
 		(*mdata)->zoom -= ZOOM;
-	if (key == 31)
+	if (key == 31 || key == 111)
 		(*mdata)->iso_grow -= ISO;
-	if (key == 34)
+	if (key == 34 || key == 105)
 		(*mdata)->iso_grow += ISO;
-	return (0);
+	return (execute_key2(key, mdata));
 }
 
 void	new_window(t_map *mdata)
 {
 	mlx_destroy_window(mdata->mlx_ptr, mdata->win_ptr);
-	(mdata)->win_height = 1400;
+	(mdata)->win_height = 1395;
 	(mdata)->win_wight = 2560;
 	mdata->mlx_ptr = mlx_init();
 	mdata->win_ptr = mlx_new_window(mdata->mlx_ptr, mdata->win_wight,
@@ -118,12 +119,25 @@ void	new_window(t_map *mdata)
 int	catch_key(int key, t_map *mdata)
 {
 	ft_printf("%d\n", key);
-	if (key == 65307 || key == 53 || key == 17)
+	// if (key == 3)
+	// {
+	// 	new_window(mdata);
+	// 	return (0);
+	// }
+	if (identify_key(key) || identify_key2(key))
+	{
+		mlx_clear_window(mdata->mlx_ptr, mdata->win_ptr);
+		execute_key(key, &mdata);
+		draw_map(mdata);
+	}
+	else if (key == 65307 || key == 53 || key == 17)
 	{
 		mlx_destroy_window(mdata->mlx_ptr, mdata->win_ptr);
 		exit_fdf(&mdata, 0);
 		exit (0);
 		return (0);
 	}
+	else
+		ft_printf("- Key is invalid\n");
 	return (0);
 }

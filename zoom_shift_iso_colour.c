@@ -6,7 +6,7 @@
 /*   By: nmagdano <nmagdano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:40:27 by nmagdano          #+#    #+#             */
-/*   Updated: 2024/04/02 19:43:46 by nmagdano         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:26:45 by nmagdano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	add_isometry(float *x, float *y, int z, t_map *mdata)
 {
+	if (mdata->two_d == 1)
+		return ;
 	*x = (*x - *y) * cos(mdata->rad);
 	*y = (*x + *y) * sin(mdata->rad) - (z * mdata->iso_grow);
 }
